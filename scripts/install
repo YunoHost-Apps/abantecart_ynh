@@ -7,9 +7,9 @@ source ./_common
 domain=$1
 path=$2
 is_public=$3
-password=$4
-with_mysql=$5
-user_db=$6
+user=$4
+passwd=$5
+email=$6
 
 app=$YNH_APP_INSTANCE_NAME
 
@@ -27,18 +27,18 @@ fi
 user="$app"
 ynh_app_setting_set "$app" is_public "$is_public"
 ynh_app_setting_set "$app" with_mysql "$with_mysql"
-ynh_app_setting_set "$app" password "$password"
+ynh_app_setting_set "$app" password "$passwd"
 ynh_app_setting_set "$app" user "$user"
 
 # Initialize database as needed
 if [[ $with_mysql -eq 1 ]]; then
-    dbname=$6
-    dbuser=$6
-    dbpass=$4
+    dbname=$app
+    dbuser=$app
+    dbpass=$(ynh_string_random)
     ynh_mysql_create_db "$dbname" "$dbuser" "$dbpass"
 
     # Store the database access
-   ynh_app_setting_set "$app" mysqlpwd "$dbpass"
+    echo -e "# MySQL Database
 fi
 
 # Remove trailing "/" for next commands
@@ -50,8 +50,24 @@ fi
 final_path=/var/www/$app
 sudo mkdir -p $final_path
 extract_source $final_path
+sudo rm -rf $final_path/test
+sudo rm -rf install.txt
 sudo mv $final_path/public_html/* ..
 sudo rmdir $final_path/public_html
+
+cd install
+sudo php cli_install.php install 
+       --db_hostname localhost
+       --db_username $dbuser
+       --db_password $dbpass
+       --db_database $dbname
+       --db_driver mysqli
+       --db_port 3306
+       --username $user
+       --password $passwd
+       --email $email
+       --http_server $domain
+ 
 
 # Files owned by root, www-data can just read
 sudo chmod 0777 $final_path/system/config.php
@@ -64,6 +80,9 @@ sudo chmod 0777 $final_path/download/
 sudo chmod 0777 $final_path/extensions/
 sudo chmod 0777 $final_path/admin/system/backup/ (if exist)
 sudo chmod 0777 $final_path/resources/
+
+# set database configuration
+sed -i "s@YNH_WWW_PATH@$path@g" ../conf/nginx.conf
 
 # Modify Nginx configuration file and copy it to Nginx conf directory
 sed -i "s@YNH_WWW_PATH@$path@g" ../conf/nginx.conf
