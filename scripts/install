@@ -10,7 +10,7 @@ is_public=$3
 user=$4
 passwd=$5
 email=$6
-
+with_mysql="true"
 app=$YNH_APP_INSTANCE_NAME
 
 # Check domain/path availability
@@ -26,7 +26,6 @@ fi
 # Save app settings
 user="$app"
 ynh_app_setting_set "$app" is_public "$is_public"
-ynh_app_setting_set "$app" with_mysql "$with_mysql"
 ynh_app_setting_set "$app" password "$passwd"
 ynh_app_setting_set "$app" user "$user"
 
@@ -66,7 +65,7 @@ sudo php cli_install.php install
        --username $user
        --password $passwd
        --email $email
-       --http_server $domain
+       --http_server $path
  
 
 # Files owned by root, www-data can just read
