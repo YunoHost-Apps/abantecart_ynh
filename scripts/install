@@ -55,7 +55,7 @@ sudo rm -rf install.txt
 sudo mv $final_path/public_html/* ..
 sudo rmdir $final_path/public_html
 
-cd $final_path/install
+cd $final_path/install/
 sudo php cli_install.php install 
        --db_hostname localhost
        --db_username $dbuser
