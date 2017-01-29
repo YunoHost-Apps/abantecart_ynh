@@ -25,6 +25,8 @@ fi
 final_path=/var/www/$app
 sudo mkdir -p $final_path
 extract_source $final_path
+sudo mv $final_path/public_html/* ..
+sudo rmdir $final_path/public_html
 
 # Files owned by root, www-data can just read
 sudo chmod 0777 $final_path/system/config.php
