@@ -9,6 +9,7 @@ path=$2
 is_public=$3
 password=$4
 with_mysql=$5
+user_db=$6
 
 app=$YNH_APP_INSTANCE_NAME
 
@@ -31,15 +32,13 @@ ynh_app_setting_set "$app" user "$user"
 
 # Initialize database as needed
 if [[ $with_mysql -eq 1 ]]; then
-    dbname=$app
-    dbuser=$app
+    dbname=$6
+    dbuser=$6
     dbpass=$4
     ynh_mysql_create_db "$dbname" "$dbuser" "$dbpass"
 
     # Store the database access
-    echo -e "# MySQL Database
-name: ${dbname}\nuser: ${dbuser}\npass: ${dbpass}" > ../sources/db_access.txt
-    ynh_app_setting_set "$app" mysqlpwd "$dbpass"
+   ynh_app_setting_set "$app" mysqlpwd "$dbpass"
 fi
 
 # Remove trailing "/" for next commands
