@@ -7,6 +7,8 @@ source ./_common
 domain=$1
 path=$2
 is_public=$3
+password=$4
+with_mysql=$5
 
 app=$YNH_APP_INSTANCE_NAME
 
@@ -14,6 +16,30 @@ app=$YNH_APP_INSTANCE_NAME
 sudo yunohost app checkurl $domain$path -a $app
 if [[ ! $? -eq 0 ]]; then
     exit 1
+fi
+
+# Check password strength
+[[ ${#password} -gt 5 ]] || ynh_die \
+"The password is too weak, it must be longer than 5 characters"
+
+# Save app settings
+user="$app"
+ynh_app_setting_set "$app" is_public "$is_public"
+ynh_app_setting_set "$app" with_mysql "$with_mysql"
+ynh_app_setting_set "$app" password "$password"
+ynh_app_setting_set "$app" user "$user"
+
+# Initialize database as needed
+if [[ $with_mysql -eq 1 ]]; then
+    dbname=$app
+    dbuser=$app
+    dbpass=$4
+    ynh_mysql_create_db "$dbname" "$dbuser" "$dbpass"
+
+    # Store the database access
+    echo -e "# MySQL Database
+name: ${dbname}\nuser: ${dbuser}\npass: ${dbpass}" > ../sources/db_access.txt
+    ynh_app_setting_set "$app" mysqlpwd "$dbpass"
 fi
 
 # Remove trailing "/" for next commands
