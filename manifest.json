@@ -8,10 +8,10 @@
     "description": {
         "fr": "Créer un site ecommerce"
     },
-    "url": "http://sebsauvage.net/wiki/doku.php?id=php:zerobin",
+    "url": "abantecart.com",
     "maintainer": {
-        "name": "julien",
-        "email": "julien.malik@paraiso.me"
+        "name": "frju365",
+        "email": "win10@tutanota.com"
     },
     "multi_instance": "true",
     "services": [
@@ -36,8 +36,8 @@
                     "en": "Choose a path for Abantecart",
                     "fr": "Choisissez un chemin pour Abantecart"
                 },
-                "example": "/zerobin",
-                "default": "/zerobin"
+                "example": "/abantecart",
+                "default": "/abantecart"
             },
             {
                 "name": "is_public",
