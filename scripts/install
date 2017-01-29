@@ -5,7 +5,7 @@ source ./_common
 
 # Retrieve arguments
 domain=$1
-path=$2
+path=${2%/}
 is_public=$3
 user=$4
 passwd=$5
