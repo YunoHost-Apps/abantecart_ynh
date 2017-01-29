@@ -20,7 +20,7 @@ if [[ ! $? -eq 0 ]]; then
 fi
 
 # Check password strength
-[[ ${#password} -gt 5 ]] || ynh_die \
+[[ ${#passwd} -gt 5 ]] || ynh_die \
 "The password is too weak, it must be longer than 5 characters"
 
 # Save app settings
