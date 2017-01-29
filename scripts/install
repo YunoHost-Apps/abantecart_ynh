@@ -37,7 +37,7 @@ if [[ $with_mysql -eq 1 ]]; then
     ynh_mysql_create_db "$dbname" "$dbuser" "$dbpass"
 
     # Store the database access
-    echo -e "# MySQL Database
+    echo -e "# MySQL Database"
 fi
 
 # Remove trailing "/" for next commands
