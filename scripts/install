@@ -76,7 +76,7 @@ sudo chmod 0777 $final_path/image/
 sudo chmod 0777 $final_path/image/thumbnails/
 sudo chmod 0777 $final_path/download/
 sudo chmod 0777 $final_path/extensions/
-sudo chmod 0777 $final_path/admin/system/backup/ (if exist)
+sudo chmod 0777 $final_path/admin/system/backup/
 sudo chmod 0777 $final_path/resources/
 
 # set database configuration
