@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Retrieve app id
-app=$YNH_APP_INSTANCE_NAME
+app=abantecart
 
 source /usr/share/yunohost/helpers
 source ./_common
@@ -13,8 +13,6 @@ is_public=$3
 user=$4
 passwd=$5
 email=$6
-with_mysql="true"
-app=$YNH_APP_INSTANCE_NAME
 
 # Check domain/path availability
 sudo yunohost app checkurl $domain$path -a $app
@@ -33,15 +31,15 @@ ynh_app_setting_set "$app" password "$passwd"
 ynh_app_setting_set "$app" user "$user"
 
 # Initialize database as needed
-if [[ $with_mysql -eq 1 ]]; then
-    dbname=$app
-    dbuser=$app
-    dbpass=$(ynh_string_random)
-    ynh_mysql_create_db "$dbname" "$dbuser" "$dbpass"
 
-    # Store the database access
-    echo -e "# MySQL Database"
-fi
+dbname=$app
+dbuser=$app
+dbpass=$(ynh_string_random)
+ynh_mysql_create_db "$dbname" "$dbuser" "$dbpass"
+
+# Store the database access
+echo -e "# MySQL Database"
+
 
 # Remove trailing "/" for next commands
 if [[ ! "$path" == "/" ]]; then
@@ -67,7 +65,7 @@ sudo php cli_install.php install \
        --username $user \
        --password $passwd \
        --email $email \
-       --http_server $path \
+       --http_server $domain$path \
  
 
 # Files owned by root, www-data can just read
