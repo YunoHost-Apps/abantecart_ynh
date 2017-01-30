@@ -64,7 +64,7 @@ sudo php cli_install.php install \
        --db_port 3306 \
        --username $user \
        --password $passwd \
-       --email $email \
+       --email "$email" \
        --http_server $domain$path \
        --db_prefix \
        --admin_path /var/www/$app/admin/
