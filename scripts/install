@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Retrieve app id
+app=$YNH_APP_INSTANCE_NAME
+
 source /usr/share/yunohost/helpers
 source ./_common
 
