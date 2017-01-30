@@ -54,7 +54,7 @@ sudo rm -rf $final_path/install.txt
 sudo mv $final_path/public_html/* $final_path/
 sudo rm -rf $final_path/public_html
 
-cd $final_path/install/
+pushd $final_path/install/
 sudo php cli_install.php install \
        --db_host localhost \
        --db_user $dbuser \
@@ -68,6 +68,7 @@ sudo php cli_install.php install \
        --http_server $domain$path \
        --db_prefix \
        --admin_path /var/www/$app/admin/
+popd
  
 
 # Files owned by root, www-data can just read
