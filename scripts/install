@@ -47,12 +47,11 @@ fi
 
 # Copy files to the right place
 final_path=/var/www/$app
-sudo mkdir -p $final_path
-extract_source $final_path
+sudo git clone https://github.com/abantecart/abantecart-src.git /var/www/$app
 sudo rm -rf $final_path/test
-sudo rm -rf install.txt
+sudo rm -rf $final_path/install.txt
 sudo mv $final_path/public_html/* ..
-sudo rmdir $final_path/public_html
+sudo rm -rf $final_path/public_html
 
 cd $final_path/install/
 sudo php cli_install.php install 
