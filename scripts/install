@@ -48,23 +48,23 @@ fi
 # Copy files to the right place
 final_path=/var/www/$app
 sudo git clone https://github.com/abantecart/abantecart-src.git /var/www/$app
-sudo rm -rf $final_path/test
+sudo rm -rf $final_path/tests
 sudo rm -rf $final_path/install.txt
-sudo mv $final_path/public_html/* ..
+sudo mv $final_path/public_html/* $final_path/
 sudo rm -rf $final_path/public_html
 
 cd $final_path/install/
-sudo php cli_install.php install 
-       --db_hostname localhost
-       --db_username $dbuser
-       --db_password $dbpass
-       --db_database $dbname
-       --db_driver mysqli
-       --db_port 3306
-       --username $user
-       --password $passwd
-       --email $email
-       --http_server $path
+sudo php cli_install.php install \
+       --db_hostname localhost \
+       --db_username $dbuser \
+       --db_password $dbpass \
+       --db_database $dbname \
+       --db_driver mysqli \
+       --db_port 3306 \
+       --username $user \
+       --password $passwd \
+       --email $email \
+       --http_server $path \
  
 
 # Files owned by root, www-data can just read
