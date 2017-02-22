@@ -66,8 +66,8 @@ sudo php cli_install.php install \
        --password=$passwd \
        --email=$email \
        --http_server=$domain$path \
-       --db_prefix _ac_ \
-       --admin_path=/var/www/$app/admin/
+       --db_prefix=_ac_ \
+       --admin_path=admin
 popd
  
 
