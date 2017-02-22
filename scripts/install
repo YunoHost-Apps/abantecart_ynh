@@ -1,24 +1,34 @@
 #!/bin/bash
 
+source /usr/share/yunohost/helpers
+source ./_common
+set -eu
+
 # Retrieve app id
 app=abantecart
 
-source /usr/share/yunohost/helpers
-source ./_common
-
 # Retrieve arguments
 domain=$1
-path=${2%/}
+path=$2
 is_public=$3
 user=$4
 passwd=$5
 email=$6
 
-# Check domain/path availability
-sudo yunohost app checkurl $domain$path -a $app
-if [[ ! $? -eq 0 ]]; then
-    exit 1
-fi
+script_dir=$PWD
+
+# Vérifie que les variables ne sont pas vides.
+CHECK_VAR "$app" "app name not set"
+CHECK_VAR "$script_dir" "script_dir not set"
+
+CHECK_PATH	# Vérifie et corrige la syntaxe du path.
+CHECK_DOMAINPATH	# Vérifie la disponibilité du path et du domaine.
+
+CHECK_FINALPATH	# Vérifie que le dossier de destination n'est pas déjà utilisé.
+
+# Install dependency to convert tracks to a readable format for the browser
+sudo apt-get update
+sudo apt-get -y -qq install php5-mysql
 
 # Check password strength
 [[ ${#passwd} -gt 5 ]] || ynh_die \
