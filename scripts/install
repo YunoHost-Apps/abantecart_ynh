@@ -2,6 +2,7 @@
 
 source /usr/share/yunohost/helpers
 source ./_common
+source .fonctions
 set -eu
 
 # Retrieve app id
