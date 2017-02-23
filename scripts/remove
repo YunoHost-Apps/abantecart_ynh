@@ -7,6 +7,8 @@ source /usr/share/yunohost/helpers
 
 domain=$(ynh_app_setting_get $app domain)
 
+ynh_mysql_drop_db $app
+
 sudo rm -rf /var/www/$app
 sudo rm -f /etc/nginx/conf.d/$domain.d/$app.conf
 
