@@ -1,6 +1,7 @@
 #!/bin/bash
 
 app=$YNH_APP_INSTANCE_NAME
+
 set -u
 # Source app helpers
 source /usr/share/yunohost/helpers
@@ -59,7 +60,6 @@ REMOVE_BDD () { # Suppression de la base de donnée et de l'utilisateur associé
 }
 
 
-domain=$(ynh_app_setting_get $app domain)
 db_name=$(ynh_app_setting_get $app db_name)
 
 REMOVE_BDD "$db_name"
