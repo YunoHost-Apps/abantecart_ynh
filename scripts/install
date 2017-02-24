@@ -28,8 +28,12 @@ CHECK_DOMAINPATH	# Vérifie la disponibilité du path et du domaine.
 CHECK_FINALPATH	# Vérifie que le dossier de destination n'est pas déjà utilisé.
 
 # Install dependency to convert tracks to a readable format for the browser
-sudo apt-get update
-sudo apt-get -y -qq install php5-mysql
+# sudo apt-get update
+# sudo apt-get -y -qq install php5-mysql
+
+# Install dependencies using Helpers
+ynh_package_install_from_equivs ../conf/abantecart-deps.control \
+|| ynh_die "Unable to install dependencies"
 
 # Check password strength
 [[ ${#passwd} -gt 5 ]] || ynh_die \

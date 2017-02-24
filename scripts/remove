@@ -12,4 +12,10 @@ ynh_mysql_drop_db $app
 sudo rm -rf /var/www/$app
 sudo rm -f /etc/nginx/conf.d/$domain.d/$app.conf
 
+# Remove app dependencies
+if ynh_package_is_installed "abantecart-deps"; then
+  ynh_package_autoremove "abantecart-deps"
+fi
+
+
 sudo service nginx reload
