@@ -1,4 +1,5 @@
 #!/bin/bash
+set -eu
 
 # Source app helpers
 source /usr/share/yunohost/helpers
@@ -14,14 +15,14 @@ db_pass=$(ynh_app_setting_get $app db_pass)
 
 if [ -d $final_path ]; then
     echo "There is already a directory: $final_path " >&2
-    exit 1
+    ynh_die
 fi
 
 # Restore Nginx
 conf=/etc/nginx/conf.d/$domain.d/$app.conf
 if [ -f $conf ]; then
     echo "There is already a nginx conf file at this path: $conf " >&2
-    exit 1
+    ynh_die
 fi
 sudo cp -a ./nginx.conf $conf
 

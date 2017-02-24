@@ -1,4 +1,5 @@
 #!/bin/bash
+set -eu
 
 source .fonctions       # Charge les fonctions génériques habituellement utilisées dans le script
 
