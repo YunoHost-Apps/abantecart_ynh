@@ -52,10 +52,6 @@ ynh_mysql_create_db "$db_name" "$db_user" "$db_pass"
 ynh_app_setting_set "$app" db_name "$db_name"
 ynh_app_setting_set "$app" db_pass "$db_pass"
 
-# Store the database access
-echo -e "# MySQL Database"
-
-
 # Remove trailing "/" for next commands
 if [[ ! "$path" == "/" ]]; then
     path=${path%/}
@@ -63,6 +59,7 @@ fi
 
 # Copy files to the right place
 final_path=/var/www/$app
+ynh_app_setting_set "$app" final_path "$final_path"
 
 # We download the sources and check the md5sum
 SFILE=`sudo cat ../sources/source_file`;

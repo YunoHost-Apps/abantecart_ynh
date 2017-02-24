@@ -24,9 +24,6 @@ if [[ ! "$path" == "/" ]]; then
     path=${path%/}
 fi
 
-# Copy files to the right place
-final_path=/var/www/$app
-
 # We download the sources and check the md5sum
 SFILE=`sudo cat ../sources/source_file`;
 sudo wget -nv -i ../sources/source_url -O ${SFILE}.tar.gz
