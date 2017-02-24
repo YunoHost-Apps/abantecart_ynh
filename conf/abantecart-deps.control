@@ -3,7 +3,7 @@ Priority: optional
 Homepage: http://www.abantecart.com/
 Standards-Version: 1.2.9
 
-Package: cops-deps
+Package: abantecart-deps
 Version: 1.2-1
 Depends: php5-mysql
 Architecture: all
