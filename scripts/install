@@ -63,7 +63,14 @@ fi
 
 # Copy files to the right place
 final_path=/var/www/$app
-sudo git clone https://github.com/abantecart/abantecart-src.git /var/www/$app
+
+# We download the sources and check the md5sum
+SFILE=`sudo cat ../sources/source_file`;
+sudo wget -nv -i ../sources/source_url -O ${SFILE}.tar.gz
+sudo md5sum -c ../sources/source_md5 --status || (echo "Corrupt source" >&2 && false)
+sudo tar xvf ${SFILE}.tar.gz -C ../sources/
+sudo cp -a ../sources/abantecart-src-master/. $final_path
+
 sudo rm -rf $final_path/tests
 sudo rm -rf $final_path/install.txt
 sudo mv $final_path/public_html/* $final_path/
