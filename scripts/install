@@ -12,9 +12,9 @@ app=$YNH_APP_INSTANCE_NAME
 domain=$YNH_APP_ARG_DOMAIN
 path=$YNH_APP_ARG_PATH
 is_public=$YNH_APP_ARG_IS_PUBLIC
-user=$YNH_APP_ARG_USER
-passwd=$YNH_APP_ARG_PASSWD
-email=$YNH_APP_ARG_EMAIL
+admin_name=$YNH_APP_ARG_ADMIN_NAME
+admin_pass=$YNH_APP_ARG_ADMIN_PASS
+admin_email=$YNH_APP_ARG_ADMIN_EMAIL
 
 # Vérifie que les variables ne sont pas vides.
 CHECK_VAR "$app" "app name not set"
@@ -39,17 +39,18 @@ ynh_package_install_from_equivs ../conf/abantecart-deps.control \
 # Save app settings
 user="$app"
 ynh_app_setting_set "$app" is_public "$is_public"
-ynh_app_setting_set "$app" password "$passwd"
-ynh_app_setting_set "$app" user "$user"
+ynh_app_setting_set "$app" admin_pass "$admin_pass"
+ynh_app_setting_set "$app" admin_name "$admin_name"
+ynh_app_setting_set "$app" admin_email "$admin_email"
 
 # Initialize database as needed
 
-dbname=$app
-dbuser=$app
-dbpass=$(ynh_string_random)
-ynh_mysql_create_db "$dbname" "$dbuser" "$dbpass"
-ynh_app_setting_set "$app" dbname "$dbname"
-ynh_app_setting_set "$app" dbpass "$dbpass"
+db_name=$app
+db_user=$app
+db_pass=$(ynh_string_random)
+ynh_mysql_create_db "$db_name" "$db_user" "$db_pass"
+ynh_app_setting_set "$app" db_name "$db_name"
+ynh_app_setting_set "$app" db_pass "$db_pass"
 
 # Store the database access
 echo -e "# MySQL Database"

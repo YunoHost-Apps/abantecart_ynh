@@ -51,7 +51,7 @@
                 "default": "Yes"
             },
             {
-                "name": "user",
+                "name": "admin_name",
                 "type": "user",
                 "ask": {
                     "en": "Choose the Abantecart administrator (must be an existing YunoHost user)",
@@ -60,7 +60,7 @@
                 "example": "homer"
             },
             {
-                "name": "passwd",
+                "name": "admin_pass",
                 "type": "password",
                 "ask": {
                     "en": "Set the password for the Admin user ≥ 5 character",
@@ -69,7 +69,7 @@
                 "example": "myreallystrengthpassword"
             },
             {
-                "name": "email",
+                "name": "admin_email",
                 "type": "email",
                 "ask": {
                     "fr": "Votre adresse mail."

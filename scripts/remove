@@ -7,9 +7,9 @@ source /usr/share/yunohost/helpers
 source .fonctions
 
 domain=$(ynh_app_setting_get $app domain)
-dbname=$(ynh_app_setting_get $app dbname)
+db_name=$(ynh_app_setting_get $app db_name)
 
-REMOVE_BDD "$dname"
+REMOVE_BDD "$db_name"
 
 # Remove installed files
 SECURE_REMOVE   '/var/www/${app}'
@@ -24,3 +24,4 @@ fi
 
 
 sudo service nginx reload
+sudo service php5-fpm reload
