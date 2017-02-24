@@ -6,7 +6,7 @@
 		is_public="Yes" (PUBLIC|public=Yes|private=No)
 		user="john"   (USER)
 		passwd="$PASSWORD"    (PASSWORD)
-		email="abc@example.com
+		email="abc@example.com"
 		
 	; Checks
 		pkg_linter=1
