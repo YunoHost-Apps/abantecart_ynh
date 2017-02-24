@@ -90,7 +90,8 @@ sudo php cli_install.php install \
        --db_prefix=_ac_ \
        --admin_path=admin
 popd
- 
+
+sudo rm -rf /var/www/$app/install/
 
 # file owned by www-data before checking permissions
 sudo chown www-data:www-data $final_path -R
@@ -120,8 +121,6 @@ if [ "$is_public" = "Yes" ];
 then
   ynh_app_setting_set "$app" unprotected_uris "/"
 fi
-
-sudo rm -rf /var/www/$app/install/
 
 sudo service php5-fpm reload
 sudo service nginx reload
