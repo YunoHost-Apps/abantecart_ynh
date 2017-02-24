@@ -11,7 +11,7 @@ domain=$(ynh_app_setting_get $app domain)
 ynh_mysql_drop_db $app
 
 # Remove installed files
-SECURE_REMOVE   '/var/www/${app}'
+SECURE_REMOVE   '/var/www/$app'
 REMOVE_NGINX_CONF
 REMOVE_FPM_CONF
 
