@@ -48,7 +48,7 @@ dbname=$app
 dbuser=$app
 dbpass=$(ynh_string_random)
 ynh_mysql_create_db "$dbname" "$dbuser" "$dbpass"
-ynh_app_setting_set "$app" dbuser "$dbuser"
+ynh_app_setting_set "$app" dbname "$dbname"
 ynh_app_setting_set "$app" dbpass "$dbpass"
 
 # Store the database access
