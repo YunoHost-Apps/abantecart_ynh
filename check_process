@@ -3,7 +3,11 @@
 	; Manifest
 		domain="domain.tld"	(DOMAIN)
 		path="/path"	(PATH)
-		is_public=0 (PUBLIC|public=0|private=1)
+		is_public="Yes" (PUBLIC|public=Yes|private=No)
+		user="john"   (USER)
+		passwd="$PASSWORD"    (PASSWORD)
+		email="abc@example.com"
+		
 	; Checks
 		pkg_linter=1
 		setup_sub_dir=1
@@ -11,10 +15,10 @@
 		setup_nourl=0
 		setup_private=1
 		setup_public=1
-		upgrade=1
-		backup_restore=1
+		upgrade=0
+		backup_restore=0
 		multi_instance=1
-		wrong_user=0
+		wrong_user=1
 		wrong_path=1
 		incorrect_path=1
 		corrupt_source=0
@@ -25,7 +29,7 @@
 	Level 1=auto
 	Level 2=auto
 	Level 3=auto
-	Level 4=0   
+	Level 4=na   
 	Level 5=auto
 	Level 6=auto
 	Level 7=auto
