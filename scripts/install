@@ -120,6 +120,7 @@ sudo chown root: $nginxconf
 sudo chmod 644 $nginxconf
 
 sudo sed -i "s@NAMETOCHANGE@$app@g" ../conf/php-fpm.conf
+sudo sed -i "s@FOLDERTOCHANGE@$final_path@g" ../conf/php-fpm.conf
 finalphpconf=/etc/php5/fpm/pool.d/$app.conf
 sudo cp ../conf/php-fpm.conf        $finalphpconf
 sudo chown root:root                $finalphpconf
