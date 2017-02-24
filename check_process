@@ -4,8 +4,8 @@
 		domain="domain.tld"	(DOMAIN)
 		path="/path"	(PATH)
 		is_public="Yes" (PUBLIC|public=Yes|private=No)
-		user="john"
-		passwd="admin"
+		user="john"   (USER)
+		passwd="$PASSWORD"    (PASSWORD)
 		email="abc@example.com
 		
 	; Checks
@@ -18,7 +18,7 @@
 		upgrade=0
 		backup_restore=0
 		multi_instance=1
-		wrong_user=0
+		wrong_user=1
 		wrong_path=1
 		incorrect_path=1
 		corrupt_source=0
