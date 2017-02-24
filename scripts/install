@@ -119,5 +119,6 @@ fi
 
 sudo rm -rf /var/www/$app/install/
 
+sudo service php5-fpm reload
 sudo service nginx reload
 sudo yunohost app ssowatconf
