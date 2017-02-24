@@ -104,12 +104,20 @@ sudo chmod 0777 $final_path/resources/ -R
 sed -i "s@YNH_WWW_PATH@$path@g" ../conf/nginx.conf
 
 # Modify Nginx configuration file and copy it to Nginx conf directory
-sed -i "s@YNH_WWW_PATH@$path@g" ../conf/nginx.conf
+sed -i "s@YNH_WWW_PATH@$path@g"         ../conf/nginx.conf
 sed -i "s@YNH_WWW_ALIAS@$final_path/@g" ../conf/nginx.conf
+sudo sed -i "s@NAMETOCHANGE@$app@g"     ../conf/nginx.conf
 nginxconf=/etc/nginx/conf.d/$domain.d/$app.conf
 sudo cp ../conf/nginx.conf $nginxconf
 sudo chown root: $nginxconf
-sudo chmod 600 $nginxconf
+sudo chmod 644 $nginxconf
+
+sudo sed -i "s@NAMETOCHANGE@$app@g" ../conf/php-fpm.conf
+finalphpconf=/etc/php5/fpm/pool.d/$app.conf
+sudo cp ../conf/php-fpm.conf        $finalphpconf
+sudo chown root:root                $finalphpconf
+sudo chmod 644                      $finalphpconf
+
 
 ynh_app_setting_set "$app" is_public "$is_public"
 if [ "$is_public" = "Yes" ];
