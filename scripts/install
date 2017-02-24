@@ -96,17 +96,6 @@ popd
 # file owned by www-data before checking permissions
 sudo chown www-data:www-data $final_path -R
 
-# Files owned by root, www-data can just read
-sudo chmod 0777 $final_path/system/config.php
-sudo chmod 0777 $final_path/system/
-sudo chmod 0777 $final_path/system/cache/ -R
-sudo chmod 0777 $final_path/system/logs/ -R
-sudo chmod 0777 $final_path/image/ -R
-sudo chmod 0777 $final_path/image/thumbnails/ -R
-sudo chmod 0777 $final_path/download/ -R
-sudo chmod 0777 $final_path/extensions/ -R
-sudo chmod 0777 $final_path/resources/ -R
-
 # set database configuration
 sed -i "s@YNH_WWW_PATH@$path@g" ../conf/nginx.conf
 
