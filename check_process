@@ -4,6 +4,10 @@
 		domain="domain.tld"	(DOMAIN)
 		path="/path"	(PATH)
 		is_public="Yes" (PUBLIC|public=Yes|private=No)
+		user="john"
+		passwd="admin"
+		email="abc@example.com
+		
 	; Checks
 		pkg_linter=1
 		setup_sub_dir=1
