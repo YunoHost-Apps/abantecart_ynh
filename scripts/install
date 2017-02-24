@@ -1,9 +1,9 @@
 #!/bin/bash
 
-source /usr/share/yunohost/helpers
 source ./_common
 source .fonctions
 set -eu
+source /usr/share/yunohost/helpers
 
 # Retrieve app id
 app=abantecart
@@ -107,10 +107,10 @@ sudo cp ../conf/nginx.conf $nginxconf
 sudo chown root: $nginxconf
 sudo chmod 600 $nginxconf
 
-sudo yunohost app setting $app is_public -v "$is_public"
+ynh_app_setting_set "$app" is_public "$is_public"
 if [ "$is_public" = "Yes" ];
 then
-  sudo yunohost app setting $app unprotected_uris -v "/"
+  ynh_app_setting_set "$app" unprotected_uris "/"
 fi
 
 sudo rm -rf /var/www/$app/install/
