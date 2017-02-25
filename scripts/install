@@ -33,7 +33,7 @@ ynh_package_install_from_equivs ../conf/abantecart-deps.control \
 || ynh_die "Unable to install dependencies"
 
 # Check password strength
-[[ ${#passwd} -gt 5 ]] || ynh_die \
+[[ ${#admin_pass} -gt 5 ]] || ynh_die \
 "The password is too weak, it must be longer than 5 characters"
 
 # Save app settings
