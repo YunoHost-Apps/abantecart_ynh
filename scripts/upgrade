@@ -1,0 +1,68 @@
+#!/bin/bash
+set -eu
+
+source .fonctions       # Charge les fonctions génériques habituellement utilisées dans le script
+
+# Récupère les infos de l'application.
+app=$YNH_APP_INSTANCE_NAME
+
+# Source app helpers
+source /usr/share/yunohost/helpers
+
+domain=$(ynh_app_setting_get $app domain)
+path=$(ynh_app_setting_get $app path)
+final_path=$(ynh_app_setting_get $app final_path)
+admin_name=$(ynh_app_setting_get $app admin_name)
+admin_pass=$(ynh_app_setting_get $app admin_pass)
+admin_email=$(ynh_app_setting_get $app admin_email)
+db_pass=$(ynh_app_setting_get $app mysqlpwd)
+db_user=$(ynh_app_setting_get $app db_user)
+
+CHECK_PATH      # Vérifie et corrige la syntaxe du path.
+
+# Remove trailing "/" for next commands
+if [[ ! "$path" == "/" ]]; then
+    path=${path%/}
+fi
+
+# We download the sources and check the md5sum
+SFILE=`sudo cat ../sources/source_file`;
+sudo wget -nv -i ../sources/source_url -O ${SFILE}.tar.gz
+sudo md5sum -c ../sources/source_md5 --status || (echo "Corrupt source" >&2 && false)
+sudo tar xvf ${SFILE}.tar.gz -C ../sources/
+sudo cp -a ../sources/abantecart-src-master/. $final_path
+
+sudo rm -rf $final_path/tests
+sudo rm -rf $final_path/install.txt
+sudo mv $final_path/public_html/* $final_path/
+sudo rm -rf $final_path/public_html
+
+# file owned by www-data before checking permissions
+sudo chown www-data:www-data $final_path -R
+
+# set database configuration
+sed -i "s@YNH_WWW_PATH@$path@g" ../conf/nginx.conf
+
+# Modify Nginx configuration file and copy it to Nginx conf directory
+sed -i "s@YNH_WWW_PATH@$path@g"         ../conf/nginx.conf
+sed -i "s@YNH_WWW_ALIAS@$final_path/@g" ../conf/nginx.conf
+sudo sed -i "s@NAMETOCHANGE@$app@g"     ../conf/nginx.conf
+nginxconf=/etc/nginx/conf.d/$domain.d/$app.conf
+sudo cp ../conf/nginx.conf $nginxconf
+sudo chown root: $nginxconf
+sudo chmod 644 $nginxconf
+
+sudo sed -i "s@NAMETOCHANGE@$app@g" ../conf/php-fpm.conf
+sudo sed -i "s@FOLDERTOCHANGE@$final_path@g" ../conf/php-fpm.conf
+finalphpconf=/etc/php5/fpm/pool.d/$app.conf
+
+ynh_app_setting_set "$app" is_public "$is_public"
+if [ "$is_public" = "Yes" ];
+then
+  ynh_app_setting_set "$app" unprotected_uris "/"
+fi
+
+sudo service php5-fpm reload
+sudo service nginx reload
+sudo yunohost app ssowatconf
+

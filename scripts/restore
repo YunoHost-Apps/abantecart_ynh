@@ -1,0 +1,47 @@
+#!/bin/bash
+set -eu
+
+# Source app helpers
+source /usr/share/yunohost/helpers
+
+# Récupère les infos de l'application.
+app=$YNH_APP_INSTANCE_NAME
+
+domain=$(ynh_app_setting_get $app domain)
+path=$(ynh_app_setting_get $app path)
+final_path=$(ynh_app_setting_get $app final_path)
+db_name=$(ynh_app_setting_get $app db_name)
+db_pass=$(ynh_app_setting_get $app db_pass)
+
+if [ -d $final_path ]; then
+    echo "There is already a directory: $final_path " >&2
+    ynh_die
+fi
+
+# Restore Nginx
+conf=/etc/nginx/conf.d/$domain.d/$app.conf
+if [ -f $conf ]; then
+    echo "There is already a nginx conf file at this path: $conf " >&2
+    ynh_die
+fi
+sudo cp -a ./nginx.conf $conf
+
+# Restore YunoHost parameters
+sudo cp -a ./yunohost/. /etc/yunohost/apps/$app/
+
+# Restore sources & data
+sudo mkdir -p $final_path
+sudo cp -a ./sources/. $final_path/
+
+ynh_mysql_create_db $db_name $db_name $db_pass
+mysql --debug-check -u $db_user -p$db_pwd $db_user < ./backupdb.sql
+
+# Copy dedicated php-fpm process from backup folder to the right location
+sudo cp -a ./php-fpm.conf /etc/php5/fpm/pool.d/$app.conf
+
+# And Reload services
+sudo service php5-fpm reload
+sudo service nginx reload
+
+sudo yunohost app ssowatconf
+
