@@ -50,6 +50,8 @@ SECURE_REMOVE () {      # Suppression de dossier avec vérification des variable
 REMOVE_BDD () { # Suppression de la base de donnée et de l'utilisateur associé.
 # $1 = Nom de la base de donnée
         # Utilise '$app' comme nom d'utilisateur et de base de donnée
+        app=$YNH_APP_INSTANCE_NAME
+        db_user=$(ynh_app_setting_get "$app" db_user)
         if mysqlshow -u root -p$(sudo cat $MYSQL_ROOT_PWD_FILE) | grep -q "^| $db_user"; then
                 echo "Delete db"
                 ynh_mysql_drop_db $db_user
