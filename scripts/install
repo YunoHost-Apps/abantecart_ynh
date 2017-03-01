@@ -81,9 +81,9 @@ sudo php cli_install.php install \
        --db_name=$db_name \
        --db_driver=amysqli \
        --db_port=3306 \
-       --username=$user \
-       --password=$passwd \
-       --email=$email \
+       --username=$admin_name \
+       --password=$admin_pass \
+       --email=$admin_email \
        --http_server=$domain$path \
        --db_prefix=_ac_ \
        --admin_path=admin
