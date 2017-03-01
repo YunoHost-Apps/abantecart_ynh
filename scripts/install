@@ -76,9 +76,9 @@ sudo rm -rf $final_path/public_html
 pushd $final_path/install/
 sudo php cli_install.php install \
        --db_host=localhost \
-       --db_user=$dbuser \
-       --db_password=$dbpass \
-       --db_name=$dbname \
+       --db_user=$db_user \
+       --db_password=$db_pass \
+       --db_name=$db_name \
        --db_driver=amysqli \
        --db_port=3306 \
        --username=$user \
