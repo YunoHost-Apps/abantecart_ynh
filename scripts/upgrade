@@ -10,7 +10,7 @@ app=$YNH_APP_INSTANCE_NAME
 source /usr/share/yunohost/helpers
 
 domain=$(ynh_app_setting_get $app domain)
-path=$(ynh_app_setting_get $app path)
+path_url=$(ynh_app_setting_get $app path_url)
 final_path=$(ynh_app_setting_get $app final_path)
 admin_name=$(ynh_app_setting_get $app admin_name)
 admin_pass=$(ynh_app_setting_get $app admin_pass)
@@ -21,9 +21,8 @@ db_user=$(ynh_app_setting_get $app db_user)
 CHECK_PATH      # Vérifie et corrige la syntaxe du path.
 
 # Remove trailing "/" for next commands
-if [[ ! "$path" == "/" ]]; then
-    path=${path%/}
-fi
+
+path_url=$(ynh_normalize_url_path $path_url)	# Vérifie et corrige la syntaxe du path.
 
 # We download the sources and check the md5sum
 SFILE=`sudo cat ../sources/source_file`;
@@ -41,10 +40,10 @@ sudo rm -rf $final_path/public_html
 sudo chown www-data:www-data $final_path -R
 
 # set database configuration
-sed -i "s@YNH_WWW_PATH@$path@g" ../conf/nginx.conf
+sed -i "s@YNH_WWW_PATH@$path_url@g" ../conf/nginx.conf
 
 # Modify Nginx configuration file and copy it to Nginx conf directory
-sed -i "s@YNH_WWW_PATH@$path@g"         ../conf/nginx.conf
+sed -i "s@YNH_WWW_PATH@$path_url@g"         ../conf/nginx.conf
 sed -i "s@YNH_WWW_ALIAS@$final_path/@g" ../conf/nginx.conf
 sudo sed -i "s@NAMETOCHANGE@$app@g"     ../conf/nginx.conf
 nginxconf=/etc/nginx/conf.d/$domain.d/$app.conf
