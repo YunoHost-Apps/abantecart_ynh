@@ -108,7 +108,7 @@ sudo php cli_install.php install \
        --username=$admin_name \
        --password=$admin_pass \
        --email=$admin_email \
-       --http_server=$domain$path \
+       --http_server=$domain$path_url \
        --db_prefix=_ac_ \
        --admin_path=admin
 popd
