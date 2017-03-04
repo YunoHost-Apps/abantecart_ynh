@@ -154,13 +154,10 @@ sudo chmod 644                      $finalphpconf
 #=================================================
 
 # Make app private if necessary
-ynh_app_setting_set $app is_public "$is_public"
-if [ $is_public -eq 0 ];
+ynh_app_setting_set "$app" is_public "$is_public"
+if [ "$is_public" = "Yes" ];
 then
-	# Retire l'autorisation d'accès de la page d'install.
-	ynh_app_setting_delete $app unprotected_uris
-	# Rend la page d'actualisation accessible pour le script cron.
-	ynh_app_setting_get $app skipped_uris "/action.php"
+  ynh_app_setting_set "$app" unprotected_uris "/"
 fi
 
 #=================================================
