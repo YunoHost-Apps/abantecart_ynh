@@ -72,7 +72,8 @@
                 "name": "admin_email",
                 "type": "email",
                 "ask": {
-                    "fr": "Votre adresse mail."
+                    "fr": "Votre adresse mail.",
+                    "en": "Your Email adress."
                 },
                 "exemple": "abc@efg.hi"
             }
