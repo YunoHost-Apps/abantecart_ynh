@@ -63,7 +63,7 @@
                 "name": "admin_pass",
                 "type": "password",
                 "ask": {
-                    "en": "Set the password for the Admin user ≥ 5 character",
+                    "en": "Set the password for the Admin user ≥ 5 character (without special caracters)",
                     "fr": "Définissez le mot de passe pour l'Administrateur. ≥ cinq charactères"
                 },
                 "example": "myreallystrengthpassword"
