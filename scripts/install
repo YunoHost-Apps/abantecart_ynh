@@ -1,20 +1,20 @@
 #!/bin/bash
 
 #=================================================
-# GENERIC STARTING
+# GENERIC START
 #=================================================
 # IMPORT GENERIC HELPERS
 #=================================================
 
-source .fonctions
+source _common.sh
 source /usr/share/yunohost/helpers
-set -eu
 
 #=================================================
-# MANAGE FAILURE OF THE SCRIPT
+# MANAGE SCRIPT FAILURE
 #=================================================
 
-ynh_check_error	# Active trap pour arrêter le script si une erreur est détectée.
+# Exit if an error occurs during the execution of the script
+ynh_abort_if_errors
 
 #=================================================
 # RETRIEVE ARGUMENTS FROM THE MANIFEST
@@ -30,19 +30,25 @@ admin_pass=$YNH_APP_ARG_ADMIN_PASS
 admin_email=$YNH_APP_ARG_ADMIN_EMAIL
 
 #=================================================
-# CHECK IF THE APP CAN BE INSTALLED WITH THIS ARGS
+# CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
 #=================================================
 
-CHECK_USER "$admin_name"	# Vérifie la validité de l'user admin
-path_url=$(ynh_normalize_url_path $path_url)	# Vérifie et corrige la syntaxe du path.
-CHECK_DOMAINPATH	# Vérifie la disponibilité du path et du domaine.
-CHECK_FINALPATH	# Vérifie que le dossier de destination n'est pas déjà utilisé.
+final_path=/var/www/$app
+test ! -e "$final_path" || ynh_die "This path already contains a folder"
+
+# Normalize the url path syntax
+path_url=$(ynh_normalize_url_path $path_url)
+
+# Check web path availability
+ynh_webpath_available $domain $path_url
+# Register (book) web path
+ynh_webpath_register $app $domain $path_url
 
 #=================================================
-# Install dependencies using Helpers
+# INSTALL DEPENDENCIES
 #=================================================
-ynh_package_install_from_equivs ../conf/abantecart-deps.control \
-|| ynh_die "Unable to install dependencies"
+
+ynh_install_app_dependencies php5-mysql
 
 #=================================================
 # Check password strength
@@ -65,21 +71,19 @@ ynh_app_setting_set "$app" admin_email "$admin_email"
 # Initialize database as needed
 #=================================================
 
-db_name=$app
-db_user=$app
-db_pass=$(ynh_string_random)
-ynh_mysql_create_db "$db_name" "$db_user" "$db_pass"
-ynh_app_setting_set "$app" db_name "$db_name"
-ynh_app_setting_set "$app" db_pass "$db_pass"
-ynh_app_setting_set "$app" db_user "$db_user"
+db_name=$(ynh_sanitize_dbid $app)
+ynh_app_setting_set $app db_name $db_name
+ynh_mysql_setup_db $db_name $db_name $db_pass
+ynh_app_setting_set $app db_pass $db_pass
+ynh_app_setting_set $app" db_user $db_user
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 
-final_path=/var/www/$app
 ynh_app_setting_set $app final_path $final_path
-SETUP_SOURCE	# Télécharge la source, décompresse et copie dans $final_path
+# Download, check integrity, uncompress and patch the source from app.src
+ynh_setup_source "$final_path"
 
 
 #=================================================
@@ -88,82 +92,89 @@ SETUP_SOURCE	# Télécharge la source, décompresse et copie dans $final_path
 # Cleaning
 #=================================================
 
-sudo rm -rf $final_path/tests
-sudo rm -rf $final_path/install.txt
-sudo mv $final_path/public_html/* $final_path/
-sudo rm -rf $final_path/public_html
+ynh_secure_remove $final_path/tests
+ynh_secure_remove $final_path/install.txt
+mv $final_path/public_html/* $final_path/
+ynh_secure_remove $final_path/public_html
 
 #=================================================
 # CLI installation
 #=================================================
 
 pushd $final_path/install/
-sudo php cli_install.php install \
-       --db_host=localhost \
-       --db_user=$db_user \
-       --db_password=$db_pass \
-       --db_name=$db_name \
-       --db_driver=amysqli \
-       --db_port=3306 \
-       --username=$admin_name \
-       --password=$admin_pass \
-       --email=$admin_email \
-       --http_server=$domain$path_url \
-       --db_prefix=_ac_ \
-       --admin_path=admin
+php cli_install.php install \
+     --db_host=localhost \
+     --db_user=$db_user \
+     --db_password=$db_pass \
+     --db_name=$db_name \
+     --db_driver=amysqli \
+     --db_port=3306 \
+     --username=$admin_name \
+     --password=$admin_pass \
+     --email=$admin_email \
+     --http_server=$domain$path_url \
+     --db_prefix=_ac_ \
+     --admin_path=admin
 popd
 
 #=================================================
 # Cleaning
 #=================================================
 
-sudo rm -rf /var/www/$app/install/
+ynh_secure_remove /var/www/$app/install/
+
+#=================================================
+# NGINX CONFIGURATION
+#=================================================
+
+# Create a dedicated nginx config
+ynh_add_nginx_config
+
+#=================================================
+# CREATE DEDICATED USER
+#=================================================
+
+# Create a system user
+ynh_system_user_create $app
+
+#=================================================
+# PHP-FPM CONFIGURATION
+#=================================================
+
+# Create a dedicated php-fpm config
+ynh_add_fpm_config
 
 #=================================================
 # Set permissions
 #=================================================
 
 # file owned by www-data before checking permissions
-sudo chown www-data:www-data $final_path -R
+chown $app:$app $final_path -R
 
 #=================================================
-# NGINX CONFIGURATION
+# SETUP LOGROTATE
 #=================================================
 
-sed -i "s@YNH_WWW_PATH@$path_url@g"         ../conf/nginx.conf
-sed -i "s@YNH_WWW_ALIAS@$final_path/@g" ../conf/nginx.conf
-sudo sed -i "s@NAMETOCHANGE@$app@g"     ../conf/nginx.conf
-nginxconf=/etc/nginx/conf.d/$domain.d/$app.conf
-sudo cp ../conf/nginx.conf $nginxconf
-sudo chown root: $nginxconf
-sudo chmod 644 $nginxconf
-
-#=================================================
-# PHP-FPM CONFIGURATION
-#=================================================
-
-sudo sed -i "s@NAMETOCHANGE@$app@g" ../conf/php-fpm.conf
-sudo sed -i "s@FOLDERTOCHANGE@$final_path@g" ../conf/php-fpm.conf
-finalphpconf=/etc/php5/fpm/pool.d/$app.conf
-sudo cp ../conf/php-fpm.conf        $finalphpconf
-sudo chown root:root                $finalphpconf
-sudo chmod 644                      $finalphpconf
+# Use logrotate to manage application logfile(s)
+ynh_use_logrotate
 
 #=================================================
 # SETUP SSOWAT
 #=================================================
 
-# Make app private if necessary
-ynh_app_setting_set "$app" is_public "$is_public"
-if [ "$is_public" = "Yes" ];
+if [ $is_public -eq 0 ]
+then	# Remove the public access
+	ynh_app_setting_delete $app skipped_uris
+fi
+# Make app public if necessary
+if [ $is_public -eq 1 ]
 then
-  ynh_app_setting_set "$app" unprotected_uris "/"
+	# unprotected_uris allows SSO credentials to be passed anyway.
+	ynh_app_setting_set $app unprotected_uris "/"
 fi
 
 #=================================================
 # RELOAD NGINX
 #=================================================
 
-sudo service php5-fpm reload
-sudo service nginx reload
-sudo yunohost app ssowatconf
+systemctl reload nginx
