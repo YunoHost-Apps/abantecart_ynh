@@ -1,47 +1,97 @@
 #!/bin/bash
-set -eu
 
-# Source app helpers
+#=================================================
+# GENERIC START
+#=================================================
+# IMPORT GENERIC HELPERS
+#=================================================
+
+if [ ! -e _common.sh ]; then
+	# Get the _common.sh file if it's not in the current directory
+	cp ../settings/scripts/_common.sh ./_common.sh
+	chmod a+rx _common.sh
+fi
+source _common.sh
 source /usr/share/yunohost/helpers
 
-# Récupère les infos de l'application.
+#=================================================
+# MANAGE SCRIPT FAILURE
+#=================================================
+
+# Exit if an error occurs during the execution of the script
+ynh_abort_if_errors
+
+#=================================================
+# LOAD SETTINGS
+#=================================================
+
 app=$YNH_APP_INSTANCE_NAME
 
 domain=$(ynh_app_setting_get $app domain)
-path=$(ynh_app_setting_get $app path)
+path_url=$(ynh_app_setting_get $app path)
 final_path=$(ynh_app_setting_get $app final_path)
 db_name=$(ynh_app_setting_get $app db_name)
 db_pass=$(ynh_app_setting_get $app db_pass)
 
-if [ -d $final_path ]; then
-    echo "There is already a directory: $final_path " >&2
-    ynh_die
-fi
+#=================================================
+# CHECK IF THE APP CAN BE RESTORED
+#=================================================
 
-# Restore Nginx
-conf=/etc/nginx/conf.d/$domain.d/$app.conf
-if [ -f $conf ]; then
-    echo "There is already a nginx conf file at this path: $conf " >&2
-    ynh_die
-fi
-sudo cp -a ./nginx.conf $conf
+ynh_webpath_available $domain $path_url \
+	|| ynh_die "Path not available: ${domain}${path_url}"
+test ! -d $final_path \
+	|| ynh_die "There is already a directory: $final_path "
 
-# Restore YunoHost parameters
-sudo cp -a ./yunohost/. /etc/yunohost/apps/$app/
+#=================================================
+# STANDARD RESTORATION STEPS
+#=================================================
+# RESTORE THE NGINX CONFIGURATION
+#=================================================
 
-# Restore sources & data
-sudo mkdir -p $final_path
-sudo cp -a ./sources/. $final_path/
+ynh_restore_file "/etc/nginx/conf.d/$domain.d/$app.conf"
 
-ynh_mysql_create_db $db_name $db_name $db_pass
-mysql --debug-check -u $db_user -p$db_pwd $db_user < ./backupdb.sql
+#=================================================
+# RESTORE THE MYSQL DATABASE
+#=================================================
 
-# Copy dedicated php-fpm process from backup folder to the right location
-sudo cp -a ./php-fpm.conf /etc/php5/fpm/pool.d/$app.conf
+db_pwd=$(ynh_app_setting_get $app mysqlpwd)
+ynh_mysql_setup_db $db_name $db_name $db_pwd
+ynh_mysql_connect_as $db_name $db_pwd $db_name < ./db.sql
 
-# And Reload services
-sudo service php5-fpm reload
-sudo service nginx reload
+#=================================================
+# RESTORE USER RIGHTS
+#=================================================
 
-sudo yunohost app ssowatconf
+# Restore permissions on app files
+chown -R $app:$app $final_path
 
+#=================================================
+# RESTORE THE PHP-FPM CONFIGURATION
+#=================================================
+
+ynh_restore_file "/etc/php5/fpm/pool.d/$app.conf"
+ynh_restore_file "/etc/php5/fpm/conf.d/20-$app.ini"
+
+#=================================================
+# SPECIFIC RESTORATION
+#=================================================
+# REINSTALL DEPENDENCIES
+#=================================================
+
+# Define and install dependencies
+ynh_install_app_dependencies php5-mysql
+
+#=================================================
+# RESTORE THE LOGROTATE CONFIGURATION
+#=================================================
+
+ynh_restore_file "/etc/logrotate.d/$app"
+
+#=================================================
+# GENERIC FINALIZATION
+#=================================================
+# RELOAD NGINX AND PHP-FPM
+#=================================================
+
+systemctl reload php5-fpm
+systemctl reload nginx
