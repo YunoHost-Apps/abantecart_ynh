@@ -72,6 +72,7 @@ ynh_app_setting_set "$app" admin_email "$admin_email"
 #=================================================
 
 db_name=$(ynh_sanitize_dbid $app)
+db_pass=$(ynh_string_random)
 ynh_app_setting_set $app db_name $db_name
 ynh_mysql_setup_db $db_name $db_name $db_pass
 ynh_app_setting_set $app db_pass $db_pass
