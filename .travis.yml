@@ -1,5 +1,5 @@
 ---
-dist: jessie
+dist: trusty
 language: bash
 
 # Use isolated build instance
