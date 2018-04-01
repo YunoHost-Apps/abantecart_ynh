@@ -1,0 +1,15 @@
+---
+dist: jessie
+language: bash
+
+# Use isolated build instance
+sudo: required
+
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install lxc
+
+script:
+  - git clone https://github.com/YunoHost/package_check
+  - package_check/sub_scripts/lxc_build.sh
+  - package_check/package_check.sh https://github.com/YunoHost-Apps/abantecart_ynh
