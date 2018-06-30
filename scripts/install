@@ -48,7 +48,7 @@ ynh_webpath_register $app $domain $path_url
 # INSTALL DEPENDENCIES
 #=================================================
 
-ynh_install_app_dependencies php5-mysql
+ynh_install_app_dependencies php-mysql
 
 #=================================================
 # Check password strength
