@@ -69,8 +69,8 @@ chown -R $app:$app $final_path
 # RESTORE THE PHP-FPM CONFIGURATION
 #=================================================
 
-ynh_restore_file "/etc/php5/fpm/pool.d/$app.conf"
-ynh_restore_file "/etc/php5/fpm/conf.d/20-$app.ini"
+ynh_restore_file "/etc/php/7.0/fpm/pool.d/$app.conf"
+ynh_restore_file "/etc/php/7.0/fpm/conf.d/20-$app.ini"
 
 #=================================================
 # SPECIFIC RESTORATION
@@ -79,7 +79,7 @@ ynh_restore_file "/etc/php5/fpm/conf.d/20-$app.ini"
 #=================================================
 
 # Define and install dependencies
-ynh_install_app_dependencies php5-mysql
+ynh_install_app_dependencies php-mysql
 
 #=================================================
 # RESTORE THE LOGROTATE CONFIGURATION
@@ -93,5 +93,5 @@ ynh_restore_file "/etc/logrotate.d/$app"
 # RELOAD NGINX AND PHP-FPM
 #=================================================
 
-systemctl reload php5-fpm
+systemctl reload php7.0-fpm
 systemctl reload nginx
