@@ -21,7 +21,6 @@ final_path=$(ynh_app_setting_get $app final_path)
 admin_name=$(ynh_app_setting_get $app admin_name)
 admin_pass=$(ynh_app_setting_get $app admin_pass)
 admin_email=$(ynh_app_setting_get $app admin_email)
-db_pass=$(ynh_app_setting_get $app mysqlpwd)
 db_user=$(ynh_app_setting_get $app db_user)
 
 #=================================================
@@ -90,6 +89,11 @@ ynh_secure_remove $final_path/public_html
 
 # Create a dedicated nginx config
 ynh_add_nginx_config
+if [ "$path_url" != "/" ]
+then
+	ynh_replace_string "^#sub_path_only" "" "/etc/nginx/conf.d/$domain.d/$app.conf"
+fi
+ynh_store_file_checksum "/etc/nginx/conf.d/$domain.d/$app.conf"
 
 #=================================================
 # CREATE DEDICATED USER
