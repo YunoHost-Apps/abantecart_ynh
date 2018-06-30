@@ -2,23 +2,25 @@
     "name": "Abantecart",
     "id": "abantecart",
     "packaging_format": 1,
-    "requirements": {
-        "yunohost": ">> 2.3.15"
-    },
     "description": {
         "en": "Create a E-commerce Website",
         "fr": "Créer un site ecommerce"
     },
+    "version": "1.2.12",
     "license": "free",
     "url": "abantecart.com",
     "maintainer": {
         "name": "frju365",
         "email": "win10@tutanota.com"
     },
+    "requirements": {
+        "yunohost": ">= 2.7.2"
+    },
     "multi_instance": true,
     "services": [
         "nginx",
-        "php5-fpm"
+        "php5-fpm",
+        "mysql"
     ],
     "arguments": {
         "install" : [
@@ -43,12 +45,12 @@
             },
             {
                 "name": "is_public",
+                "type": "boolean",
                 "ask": {
-                    "en": "Is it a public Abantecart site ?",
-                    "fr": "Est-ce un site public ?"
+                    "en": "Is it a public application?",
+                    "fr": "Est-ce une application publique ?"
                 },
-                "choices": ["Yes", "No"],
-                "default": "Yes"
+                "default": true
             },
             {
                 "name": "admin_name",

@@ -1,2 +1,6 @@
 SOURCE_URL=https://github.com/abantecart/abantecart-src/archive/1.2.12.tar.gz
-SOURCE_SUM=928345728f9921ca945aa2b9e96c11ef
+SOURCE_SUM=3cff18d75dbd62aedbdd60771e452418599eb00f055581f8ff5dc6bde8b9f93f
+SOURCE_SUM_PRG=sha256sum
+SOURCE_FORMAT=tar.gz
+SOURCE_IN_SUBDIR=true
+SOURCE_FILENAME=
