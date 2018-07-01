@@ -103,7 +103,7 @@ ynh_secure_remove $final_path/public_html
 pushd $final_path/install/
 php cli_install.php install \
      --db_host=localhost \
-     --db_user=$db_user \
+     --db_user=$db_name \
      --db_password=$db_pwd \
      --db_name=$db_name \
      --db_driver=amysqli \
