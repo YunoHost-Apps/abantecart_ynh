@@ -96,6 +96,19 @@ ynh_secure_remove $final_path/install.txt
 mv $final_path/public_html/* $final_path/
 ynh_secure_remove $final_path/public_html
 
+pushd final_path
+chmod 0755 system/config.php
+chmod 0755 system/
+chmod 0755 system/cache/
+chmod 0755 system/logs/
+chmod 0755 image/
+chmod 0755 image/thumbnails/
+chmod 0755 download/
+chmod 0755 extensions/
+chmod 0755 admin/system/backup/
+chmod 0755 resources/
+popd
+
 #=================================================
 # CLI installation
 #=================================================
