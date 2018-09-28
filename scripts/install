@@ -96,7 +96,7 @@ ynh_secure_remove $final_path/install.txt
 mv $final_path/public_html/* $final_path/
 ynh_secure_remove $final_path/public_html
 
-pushd final_path
+pushd $final_path
 chmod 0755 system/config.php
 chmod 0755 system/
 chmod 0755 system/cache/
