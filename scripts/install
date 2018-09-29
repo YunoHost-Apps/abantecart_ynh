@@ -105,6 +105,7 @@ chmod 0755 image/
 chmod 0755 image/thumbnails/
 chmod 0755 download/
 chmod 0755 extensions/
+mkdir -p admin/system/backup/
 chmod 0755 admin/system/backup/
 chmod 0755 resources/
 popd
