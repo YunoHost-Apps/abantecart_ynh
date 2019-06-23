@@ -48,14 +48,14 @@ ynh_webpath_register $app $domain $path_url
 # INSTALL DEPENDENCIES
 #=================================================
 
-ynh_install_app_dependencies php-mysql
+ynh_install_app_dependencies php-mysql php-zip php-gd
 
 #=================================================
 # Check password strength
 #=================================================
 
-[[ ${#admin_pass} -gt 5 ]] || ynh_die \
-"The password is too weak, it must be longer than 5 characters"
+[[ ${#admin_pass} -gt 8 ]] || ynh_die \
+"The password is too weak, it must be longer than 8 characters"
 
 #=================================================
 # STORE SETTINGS FROM MANIFEST
@@ -127,7 +127,7 @@ php cli_install.php install \
      --email=$admin_email \
      --http_server=https://$domain$path_url \
      --db_prefix=_ac_ \
-     --admin_path=admin
+     --admin_path=ab_admin
 popd
 
 #=================================================
