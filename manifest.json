@@ -6,7 +6,7 @@
         "en": "Create a E-commerce Website",
         "fr": "Créer un site ecommerce"
     },
-    "version": "1.2.12",
+    "version": "1.2.12~ynh1",
     "license": "free",
     "url": "abantecart.com",
     "maintainer": {
@@ -14,7 +14,7 @@
         "email": "win10@tutanota.com"
     },
     "requirements": {
-        "yunohost": ">= 3.0.0"
+        "yunohost": ">= 4.0.0"
     },
     "multi_instance": true,
     "services": [
