@@ -15,11 +15,16 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 ## Overview
 
-Open source ecommerce platform to power online retail
+AbanteCart is a free open source ecommerce platform to power online retail. AbanteCart is a ready to run web application as well as reliable foundation to build custom eCommerce solutions. AbanteCart ecommerce platform is designed to fit a wide variety of online businesses and applications, as well as can be configured or customized to perform very specific business requirements. Chosen by many shop owners launching their business online for the first time, AbanteCart is also picked by developers looking for a user-friendly interface and powerful features set.
+
 
 **Shipped version:** 1.3.2~ynh1
 
+**Demo:** https://www.abantecart.com/shopping-cart-demo
 
+## Screenshots
+
+![](./doc/screenshots/dashboard.png)
 
 ## Disclaimers / important information
 
@@ -28,6 +33,10 @@ Open source ecommerce platform to power online retail
 - Instead of upgrading via Yunohost, you should refer to [this guide](https://abantecart.atlassian.net/wiki/spaces/AD/pages/5275676/Upgrade+manually)
 ## Documentation and resources
 
+* Official app website: https://www.abantecart.com/
+* Official user documentation: https://abantecart.atlassian.net/wiki/spaces/AD/overview?homepageId=3506313
+* Official admin documentation: https://docs.abantecart.com/
+* Upstream app code repository: https://github.com/abantecart/abantecart-src
 * YunoHost documentation for this app: https://yunohost.org/app_abantecart
 * Report a bug: https://github.com/YunoHost-Apps/abantecart_ynh/issues
 
