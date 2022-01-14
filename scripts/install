@@ -26,6 +26,7 @@ password=$YNH_APP_ARG_PASSWORD
 is_public=$YNH_APP_ARG_IS_PUBLIC
 admin=$YNH_APP_ARG_ADMIN
 phpversion=$YNH_PHP_VERSION
+email=$(ynh_user_get_info --username=$admin --key=mail)
 
 app=$YNH_APP_INSTANCE_NAME
 
@@ -97,7 +98,7 @@ php $php_installer install \
     --username=$admin \
     --admin_path=$admin \
     --password=$password \
-    --email=$(ynh_user_get_info $admin 'mail') \
+    --email=$email \
     --http_server=https://$domain
 
 ynh_secure_remove $final_path/www/install
