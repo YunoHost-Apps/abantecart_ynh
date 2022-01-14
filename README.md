@@ -1,63 +1,42 @@
-# Abantecart for YunoHost
+# AbanteCart for YunoHost
 
 [![Integration level](https://dash.yunohost.org/integration/abantecart.svg)](https://dash.yunohost.org/appci/app/abantecart) ![](https://ci-apps.yunohost.org/ci/badges/abantecart.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/abantecart.maintain.svg)  
-[![Install abantecart with YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=abantecart)
+[![Install AbanteCart with YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=abantecart)
 
 *[Lire ce readme en français.](./README_fr.md)*
 
-> *This package allows you to install abantecart quickly and simply on a YunoHost server.  
-If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/install) to learn how to install it.*
+> *This package allow you to install AbanteCart quickly and simply on a YunoHost server.  
+If you don't have YunoHost, please see [here](https://yunohost.org/install) to know how to install and enjoy it.*
 
 ## Overview
-Plateforme pour la création de site Ecommerce/Business solution provider
 
-**Shipped version:** 1.2.12
+AbanteCart is a free open source ecommerce platform to power online retail. 
 
-## Screenshots
+**Shipped version:** 1.3.2~ynh1
 
-![](Link to a screenshot of this app.)
+## Disclaimers / important information
 
-## Demo
+- Instead of upgrading via Yunohost, you should refer to [this guide](https://abantecart.atlassian.net/wiki/spaces/AD/pages/5275676/Upgrade+manually)
 
-* [Official demo](Link to a demo site for this app.)
+Using screen in case of disconnects
 
-## Configuration
+``` 
+sudo apt-get install screen
+screen
+sudo yunohost app install https://github.com/YunoHost-Apps/abantecart_ynh.git
+```
+Recover after disconnect:
+```
+screen -d
+screen -r
+```
 
-How to configure this app: From an admin panel, a plain file with SSH, or any other way.
+## Documentation and resources
 
-## Documentation
-
- * Official documentation: Link to the official documentation of this app
- * YunoHost documentation: If specific documentation is needed, feel free to contribute.
-
-## YunoHost specific features
-
-#### Multi-user support
-
-* Are LDAP and HTTP auth supported?
-* Can the app be used by multiple users?
-
-#### Supported architectures
-
-* x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/abantecart%20%28Apps%29.svg)](https://ci-apps.yunohost.org/ci/apps/abantecart/)
-* ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/abantecart%20%28Apps%29.svg)](https://ci-apps-arm.yunohost.org/ci/apps/abantecart/)
-
-## Limitations
-
-* Any known limitations.
-
-## Additional information
-
-* Other info you would like to add about this app.
-
-## Links
-
- * Report a bug: https://github.com/YunoHost-Apps/abantecart_ynh/issues
- * App website: Link to the official website of this app.
- * Upstream app repository: Link to the official repository of the upstream app.
- * YunoHost website: https://yunohost.org/
-
----
+* Official app website: https://www.abantecart.com/
+* Upstream app code repository: https://github.com/abantecart/abantecart-src
+* YunoHost documentation for this app: https://yunohost.org/app_abantecart
+* Report a bug: https://github.com/YunoHost-Apps/abantecart_ynh/issues
 
 ## Developer info
 
@@ -69,3 +48,5 @@ sudo yunohost app install https://github.com/YunoHost-Apps/abantecart_ynh/tree/t
 or
 sudo yunohost app upgrade abantecart -u https://github.com/YunoHost-Apps/abantecart_ynh/tree/testing --debug
 ```
+
+**More info regarding app packaging:** https://yunohost.org/packaging_apps
