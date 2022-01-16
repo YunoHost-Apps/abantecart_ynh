@@ -52,6 +52,8 @@ ynh_remove_fpm_config
 #=================================================
 ynh_script_progression --message="Removing NGINX web server configuration..." --weight=2
 
+ynh_remove_nginx_config
+
 #=================================================
 # GENERIC FINALIZATION
 #=================================================
