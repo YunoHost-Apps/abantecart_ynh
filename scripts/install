@@ -29,6 +29,7 @@ phpversion=$YNH_PHP_VERSION
 email=$(ynh_user_get_info --username=$admin --key=mail)
 
 app=$YNH_APP_INSTANCE_NAME
+internal_version="$(ynh_app_upstream_version)~ynh$(ynh_app_package_version)"
 
 #=================================================
 # CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
@@ -50,6 +51,7 @@ ynh_app_setting_set --app=$app --key=domain --value=$domain
 ynh_app_setting_set --app=$app --key=path --value=$path_url
 ynh_app_setting_set --app=$app --key=final_path --value=$final_path
 ynh_app_setting_set --app=$app --key=admin --value=$admin
+ynh_app_setting_set --app=$app --key=internal_version --value=$internal_version
 
 #=================================================
 # CREATE DEDICATED USER
