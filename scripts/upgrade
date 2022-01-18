@@ -21,7 +21,7 @@ path_url=$(ynh_app_setting_get --app=$app --key=path)
 admin=$(ynh_app_setting_get --app=$app --key=admin)
 final_path=$(ynh_app_setting_get --app=$app --key=final_path)
 db_name=$(ynh_app_setting_get --app=$app --key=db_name)
-internal_version=$(ynh_app_setting_get --app=$app --key=internal_version)
+src_version=$(ynh_app_setting_get --app=$app --key=src_version)
 
 phpversion=$YNH_PHP_VERSION
 
@@ -102,13 +102,14 @@ chown -R $app:www-data "$final_path"
 ynh_script_progression --message="Upgrading MySQL configuration..." --weight=1
 
 # Update MySQL entries
-upgrade_mysql_dir=../sources/mysqlpatch/$internal_version.sql
+upgrade_mysql_dir="../sources/patches/mysql/from_$src_version.sql"
 
 if [ -d "$upgrade_mysql_dir" ]; then
 	ynh_mysql_execute_file_as_root --file=$upgrade_mysql_dir
-	current_version="$(ynh_app_upstream_version)~ynh$(ynh_app_package_version)"
-	ynh_app_setting_set --app=$app --key=internal_version --value=$current_version
 fi
+
+updated_src_version=$(ynh_app_upstream_version)
+ynh_app_setting_set --app=$app --key=src_version --value=$updated_src_version
 
 #=================================================
 # NGINX CONFIGURATION
