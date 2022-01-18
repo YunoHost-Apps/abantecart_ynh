@@ -99,6 +99,8 @@ chown -R $app:www-data "$final_path"
 find $final_path/www -type d -exec chmod 755 {} \;
 find $final_path/www -type f -exec chmod 644 {} \;
 
+ln -s $final_path/git_src/public_html $final_path/www
+
 #=================================================
 # MYSQL CONFIGURATION
 #=================================================
