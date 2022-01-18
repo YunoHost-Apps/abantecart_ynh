@@ -104,8 +104,9 @@ ynh_script_progression --message="Upgrading MySQL configuration..." --weight=1
 # Update MySQL entries
 upgrade_mysql_dir="../sources/patches/mysql/from_$src_version.sql"
 
-if [ -d "$upgrade_mysql_dir" ]; then
-	ynh_mysql_execute_file_as_root --file=$upgrade_mysql_dir
+if [ -f "$upgrade_mysql_dir" ]; then
+	ynh_mysql_execute_file_as_root --file=$upgrade_mysql_dir --database=$db_name
+	cat $upgrade_mysql_dir
 fi
 
 updated_src_version=$(ynh_app_upstream_version)
