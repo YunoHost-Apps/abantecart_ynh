@@ -1,83 +1,57 @@
 {
-    "name": "Abantecart",
     "id": "abantecart",
+    "name": "Abantecart",
     "packaging_format": 1,
     "description": {
-        "en": "Create a E-commerce Website",
-        "fr": "Créer un site ecommerce"
+        "en": "Open source ecommerce platform to power online retail",
+        "fr": "Plateforme de commerce électronique pour la vente au détail en ligne"
     },
-    "version": "1.2.12",
-    "license": "free",
-    "url": "abantecart.com",
+    "version": "1.3.2~ynh1",
+    "url": "https://www.abantecart.com/",
+    "upstream": {
+        "license": "OSL-3.0",
+        "website": "https://www.abantecart.com/",
+        "demo": "https://www.abantecart.com/shopping-cart-demo",
+        "admindoc": "https://docs.abantecart.com/",
+        "userdoc": "https://abantecart.atlassian.net/wiki/spaces/AD/overview?homepageId=3506313",
+        "code": "https://github.com/abantecart/abantecart-src"
+    },
+    "license": "OSL-3.0",
     "maintainer": {
-        "name": "frju365",
-        "email": "win10@tutanota.com"
+        "name": "",
+        "email": ""
     },
     "requirements": {
-        "yunohost": ">= 3.0.0"
+        "yunohost": ">= 4.3.0"
     },
-    "multi_instance": true,
+    "multi_instance": false,
     "services": [
         "nginx",
-        "php7.0-fpm",
+        "php7.3-fpm",
         "mysql"
     ],
     "arguments": {
         "install" : [
             {
                 "name": "domain",
-                "type": "domain",
-                "ask": {
-                    "en": "Choose a domain for Abantecart",
-                    "fr": "Choisissez un domaine pour Abantecart"
-                },
-                "example": "domain.org"
+                "type": "domain"
             },
             {
-                "name": "path",
-                "type": "path",
-                "ask": {
-                    "en": "Choose a path for Abantecart",
-                    "fr": "Choisissez un chemin pour Abantecart"
-                },
-                "example": "/abantecart",
-                "default": "/abantecart"
+                "name": "admin",
+                "type": "user",
+                "help": {
+                    "en": "Access admin page via https://<domain.tld>/<admin>/"
+                }
+            },
+            {
+                "name": "password",
+                "type": "password",
+                "optional": false
             },
             {
                 "name": "is_public",
                 "type": "boolean",
-                "ask": {
-                    "en": "Is it a public application?",
-                    "fr": "Est-ce une application publique ?"
-                },
                 "default": true
-            },
-            {
-                "name": "admin_name",
-                "type": "user",
-                "ask": {
-                    "en": "Choose the Abantecart administrator (must be an existing YunoHost user)",
-                    "fr": "Choisissez l'administrateur de Abantecart (doit être un utilisateur YunoHost existant)"
-                },
-                "example": "homer"
-            },
-            {
-                "name": "admin_pass",
-                "type": "password",
-                "ask": {
-                    "en": "Set the password for the Admin user ≥ 8 character (without special caracters)",
-                    "fr": "Définissez le mot de passe pour l'Administrateur. ≥ cinq charactères"
-                },
-                "example": "myreallystrengthpassword"
-            },
-            {
-                "name": "admin_email",
-                "type": "email",
-                "ask": {
-                    "fr": "Votre adresse mail.",
-                    "en": "Your Email adress."
-                },
-                "exemple": "abc@efg.hi"
             }
         ]
     }

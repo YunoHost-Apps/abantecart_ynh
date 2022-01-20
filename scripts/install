@@ -20,168 +20,141 @@ ynh_abort_if_errors
 # RETRIEVE ARGUMENTS FROM THE MANIFEST
 #=================================================
 
-app=$YNH_APP_INSTANCE_NAME
-
 domain=$YNH_APP_ARG_DOMAIN
-path_url=$YNH_APP_ARG_PATH
+path_url="/"
+password=$YNH_APP_ARG_PASSWORD
 is_public=$YNH_APP_ARG_IS_PUBLIC
-admin_name=$YNH_APP_ARG_ADMIN_NAME
-admin_pass=$YNH_APP_ARG_ADMIN_PASS
-admin_email=$YNH_APP_ARG_ADMIN_EMAIL
+admin=$YNH_APP_ARG_ADMIN
+phpversion=$YNH_PHP_VERSION
+email=$(ynh_user_get_info --username=$admin --key=mail)
+
+app=$YNH_APP_INSTANCE_NAME
+src_version=$(ynh_app_upstream_version)
 
 #=================================================
 # CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
 #=================================================
+ynh_script_progression --message="Validating installation parameters..." --weight=2
 
 final_path=/var/www/$app
-test ! -e "$final_path" || ynh_die "This path already contains a folder"
+test ! -e "$final_path" || ynh_die --message="This path already contains a folder"
 
-# Normalize the url path syntax
-path_url=$(ynh_normalize_url_path $path_url)
-
-# Check web path availability
-ynh_webpath_available $domain $path_url
 # Register (book) web path
-ynh_webpath_register $app $domain $path_url
-
-#=================================================
-# INSTALL DEPENDENCIES
-#=================================================
-
-ynh_install_app_dependencies php-mysql php-zip php-gd
-
-#=================================================
-# Check password strength
-#=================================================
-
-[[ ${#admin_pass} -gt 8 ]] || ynh_die \
-"The password is too weak, it must be longer than 8 characters"
+ynh_webpath_register --app=$app --domain=$domain --path_url=$path_url
 
 #=================================================
 # STORE SETTINGS FROM MANIFEST
 #=================================================
+ynh_script_progression --message="Storing installation settings..."
 
-user="$app"
-ynh_app_setting_set "$app" is_public "$is_public"
-ynh_app_setting_set "$app" admin_pass "$admin_pass"
-ynh_app_setting_set "$app" admin_name "$admin_name"
-ynh_app_setting_set "$app" admin_email "$admin_email"
-
-#=================================================
-# CREATE A MYSQL DATABASE
-#=================================================
-# If your app uses a MySQL database, you can use these lines to bootstrap
-# a database, an associated user and save the password in app settings
-
-db_name=$(ynh_sanitize_dbid $app)
-ynh_app_setting_set $app db_name $db_name
-ynh_mysql_setup_db $db_name $db_name
-
-#=================================================
-# DOWNLOAD, CHECK AND UNPACK SOURCE
-#=================================================
-
-ynh_app_setting_set $app final_path $final_path
-# Download, check integrity, uncompress and patch the source from app.src
-ynh_setup_source "$final_path"
-
-#=================================================
-# SPECIFIC SETUP
-#=================================================
-# Cleaning
-#=================================================
-
-ynh_secure_remove $final_path/tests
-ynh_secure_remove $final_path/install.txt
-mv $final_path/public_html/* $final_path/
-ynh_secure_remove $final_path/public_html
-
-pushd $final_path
-chmod 0755 system/config.php
-chmod 0755 system/
-chmod 0755 system/cache/
-chmod 0755 system/logs/
-chmod 0755 image/
-chmod 0755 image/thumbnails/
-chmod 0755 download/
-chmod 0755 extensions/
-mkdir -p admin/system/backup/
-chmod 0755 admin/system/backup/
-chmod 0755 resources/
-popd
-
-#=================================================
-# CLI installation
-#=================================================
-
-pushd $final_path/install/
-php cli_install.php install \
-     --db_host=localhost \
-     --db_user=$db_name \
-     --db_password=$db_pwd \
-     --db_name=$db_name \
-     --db_driver=amysqli \
-     --db_port=3306 \
-     --username=$admin_name \
-     --password=$admin_pass \
-     --email=$admin_email \
-     --http_server=https://$domain$path_url \
-     --db_prefix=_ac_ \
-     --admin_path=ab_admin
-popd
-
-#=================================================
-# NGINX CONFIGURATION
-#=================================================
-
-# Create a dedicated nginx config
-ynh_add_nginx_config
+ynh_app_setting_set --app=$app --key=domain --value=$domain
+ynh_app_setting_set --app=$app --key=path --value=$path_url
+ynh_app_setting_set --app=$app --key=final_path --value=$final_path
+ynh_app_setting_set --app=$app --key=admin --value=$admin
+ynh_app_setting_set --app=$app --key=src_version --value=$src_version
 
 #=================================================
 # CREATE DEDICATED USER
 #=================================================
+ynh_script_progression --message="Configuring system user..." --weight=1
 
-# Create a system user
-ynh_system_user_create $app
+ynh_system_user_create --username=$app --home_dir="$final_path"
+
+#=================================================
+# STANDARD MODIFICATIONS
+#=================================================
+# DOWNLOAD, CHECK AND UNPACK SOURCE
+#=================================================
+ynh_script_progression --message="Setting up source files..." --weight=3
+
+ynh_app_setting_set --app=$app --key=final_path --value=$final_path
+# Download, check integrity, uncompress and patch the source from app.src
+ynh_setup_source --dest_dir="$final_path/git_src"
+
+ln -s $final_path/git_src/public_html $final_path/www
+
+#=================================================
+# CREATE A MYSQL DATABASE
+#=================================================
+ynh_script_progression --message="Creating a MySQL database..." --weight=2
+
+db_name=$(ynh_sanitize_dbid --db_name=$app)
+db_user=$db_name
+ynh_app_setting_set --app=$app --key=db_name --value=$db_name
+ynh_mysql_setup_db --db_user=$db_user --db_name=$db_name
+
+#=================================================
+# CREATE A MYSQL DATABASE
+#=================================================
+ynh_script_progression --message="Configuring a MySQL database..." --weight=2
+
+cat $final_path/www/install/cli_install.php
+php_installer=$final_path/www/install/cli_install.php
+php $php_installer install \
+    --db_host=localhost \
+    --db_user=$db_name \
+    --db_password=$db_pwd \
+    --db_name=$db_name \
+    --db_driver=amysqli \
+    --db_prefix=ac_ \
+    --username=$admin \
+    --admin_path=$admin \
+    --password=$password \
+    --email=$email \
+    --http_server=https://$domain
+
+ynh_secure_remove $final_path/www/install
+chmod 750 "$final_path"
+chmod -R o-rwx "$final_path"
+chown -R $app:www-data "$final_path"
+find $final_path/www -type d -exec chmod 755 {} \;
+find $final_path/www -type f -exec chmod 644 {} \;
+
+#=================================================
+# NGINX CONFIGURATION
+#=================================================
+ynh_script_progression --message="Configuring NGINX web server..." --weight=2
+
+# Create a dedicated NGINX config
+ynh_add_nginx_config
 
 #=================================================
 # PHP-FPM CONFIGURATION
 #=================================================
+ynh_script_progression --message="Configuring PHP-FPM..." --weight=2
 
-# Create a dedicated php-fpm config
-ynh_add_fpm_config
+# If the app is private, set the usage to low, otherwise to high.
+if [ $is_public -eq 0 ]
+then
+    usage=low
+else
+    usage=high
+fi
+# Create a dedicated PHP-FPM config
+ynh_add_fpm_config --usage=$usage  --footprint=low
 
 #=================================================
-# Set permissions
-#=================================================
-
-# file owned by www-data before checking permissions
-chown $app:$app $final_path -R
-
-#=================================================
-# SETUP LOGROTATE
-#=================================================
-
-# Use logrotate to manage application logfile(s)
-ynh_use_logrotate
-
+# GENERIC FINALIZATION
 #=================================================
 # SETUP SSOWAT
 #=================================================
+ynh_script_progression --message="Configuring permissions..."
 
-if [ $is_public -eq 0 ]
-then	# Remove the public access
-	ynh_app_setting_delete $app skipped_uris
-fi
 # Make app public if necessary
 if [ $is_public -eq 1 ]
 then
-	# unprotected_uris allows SSO credentials to be passed anyway.
-	ynh_app_setting_set $app unprotected_uris "/"
+    ynh_permission_update --permission="main" --add="visitors"
 fi
 
 #=================================================
 # RELOAD NGINX
 #=================================================
+ynh_script_progression --message="Reloading NGINX web server..."
 
-systemctl reload nginx
+ynh_systemd_action --service_name=nginx --action=reload
+
+#=================================================
+# END OF SCRIPT
+#=================================================
+
+ynh_script_progression --message="Installation of $app completed" --last
