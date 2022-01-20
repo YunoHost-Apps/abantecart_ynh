@@ -26,7 +26,7 @@ AbanteCart is a free open source ecommerce platform to power online retail. Aban
 
 ### Important points to read before installing
 
-- Instead of upgrading via Yunohost, you should refer to [this guide](https://abantecart.atlassian.net/wiki/spaces/AD/pages/5275676/Upgrade+manually)
+- Do not upgrade manually within the app, upgrade with Yunohost instead!
 ## Documentations et ressources
 
 * Site officiel de l'app : https://www.abantecart.com/
