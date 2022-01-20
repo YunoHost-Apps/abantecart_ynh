@@ -24,8 +24,12 @@ domain=$YNH_APP_ARG_DOMAIN
 path_url="/"
 password=$YNH_APP_ARG_PASSWORD
 is_public=$YNH_APP_ARG_IS_PUBLIC
-app=$YNH_APP_INSTANCE_NAME
 admin=$YNH_APP_ARG_ADMIN
+phpversion=$YNH_PHP_VERSION
+email=$(ynh_user_get_info --username=$admin --key=mail)
+
+app=$YNH_APP_INSTANCE_NAME
+src_version=$(ynh_app_upstream_version)
 
 #=================================================
 # CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
@@ -47,37 +51,43 @@ ynh_app_setting_set --app=$app --key=domain --value=$domain
 ynh_app_setting_set --app=$app --key=path --value=$path_url
 ynh_app_setting_set --app=$app --key=final_path --value=$final_path
 ynh_app_setting_set --app=$app --key=admin --value=$admin
+ynh_app_setting_set --app=$app --key=src_version --value=$src_version
+
+#=================================================
+# CREATE DEDICATED USER
+#=================================================
+ynh_script_progression --message="Configuring system user..." --weight=1
+
+ynh_system_user_create --username=$app --home_dir="$final_path"
 
 #=================================================
 # STANDARD MODIFICATIONS
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
-ynh_script_progression --message="Setting up source files..."
+ynh_script_progression --message="Setting up source files..." --weight=3
+
 ynh_app_setting_set --app=$app --key=final_path --value=$final_path
 # Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$final_path/git_src"
-ln -s $final_path/git_src/public_html $final_path/www
 
-#=================================================
-# CREATE DEDICATED USER
-#=================================================
-ynh_script_progression --message="Configuring system user..."
-ynh_system_user_create --username=$app --home_dir="$final_path"
+ln -s $final_path/git_src/public_html $final_path/www
 
 #=================================================
 # CREATE A MYSQL DATABASE
 #=================================================
-
 ynh_script_progression --message="Creating a MySQL database..." --weight=2
+
 db_name=$(ynh_sanitize_dbid --db_name=$app)
+db_user=$db_name
 ynh_app_setting_set --app=$app --key=db_name --value=$db_name
-ynh_mysql_setup_db --db_user=$db_name --db_name=$db_name
+ynh_mysql_setup_db --db_user=$db_user --db_name=$db_name
 
 #=================================================
 # CREATE A MYSQL DATABASE
 #=================================================
 ynh_script_progression --message="Configuring a MySQL database..." --weight=2
+
 cat $final_path/www/install/cli_install.php
 php_installer=$final_path/www/install/cli_install.php
 php $php_installer install \
@@ -90,7 +100,7 @@ php $php_installer install \
     --username=$admin \
     --admin_path=$admin \
     --password=$password \
-    --email=$(ynh_user_get_info $admin 'mail') \
+    --email=$email \
     --http_server=https://$domain
 
 ynh_secure_remove $final_path/www/install
@@ -121,8 +131,7 @@ else
     usage=high
 fi
 # Create a dedicated PHP-FPM config
-ynh_add_fpm_config --usage=$usage --footprint=medium
-phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
+ynh_add_fpm_config --usage=$usage  --footprint=low
 
 #=================================================
 # GENERIC FINALIZATION
