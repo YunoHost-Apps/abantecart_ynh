@@ -14,7 +14,8 @@
         "demo": "https://www.abantecart.com/shopping-cart-demo",
         "admindoc": "https://docs.abantecart.com/",
         "userdoc": "https://abantecart.atlassian.net/wiki/spaces/AD/overview?homepageId=3506313",
-        "code": "https://github.com/abantecart/abantecart-src"
+        "code": "https://github.com/abantecart/abantecart-src",
+        "cpe": "cpe:2.3:a:abantecart:abantecart"
     },
     "license": "OSL-3.0",
     "maintainer": {
@@ -31,7 +32,7 @@
         "mysql"
     ],
     "arguments": {
-        "install" : [
+        "install": [
             {
                 "name": "domain",
                 "type": "domain"
