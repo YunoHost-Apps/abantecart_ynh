@@ -1,5 +1,7 @@
-SOURCE_URL=https://github.com/abantecart/abantecart-src/archive/refs/tags/1.3.2.zip
-SOURCE_SUM=631fd1032e5a32e3041c56e78048d611bcf28ef07bae1ac75bb467190f18f014
+SOURCE_URL=https://github.com/abantecart/abantecart-src/archive/refs/tags/1.3.2.tar.gz
+SOURCE_SUM=58ed9007054e5f74826d8ac5d3358d893c612af34e04877107c9baf81f6d529f
 SOURCE_SUM_PRG=sha256sum
-SOURCE_FORMAT=zip
+SOURCE_FORMAT=tar.gz
+SOURCE_IN_SUBDIR=true
+SOURCE_FILENAME=
 SOURCE_EXTRACT=true
