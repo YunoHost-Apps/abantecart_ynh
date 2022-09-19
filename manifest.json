@@ -1,6 +1,6 @@
 {
-    "id": "abantecart",
     "name": "Abantecart",
+    "id": "abantecart",
     "packaging_format": 1,
     "description": {
         "en": "Open source ecommerce platform to power online retail",
@@ -38,21 +38,18 @@
                 "type": "domain"
             },
             {
+                "name": "is_public",
+                "type": "boolean",
+                "default": true
+            },
+            {
                 "name": "admin",
-                "type": "user",
-                "help": {
-                    "en": "Access admin page via https://<domain.tld>/<admin>/"
-                }
+                "type": "user"
             },
             {
                 "name": "password",
                 "type": "password",
                 "optional": false
-            },
-            {
-                "name": "is_public",
-                "type": "boolean",
-                "default": true
             }
         ]
     }
