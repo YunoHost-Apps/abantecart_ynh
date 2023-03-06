@@ -12,7 +12,7 @@
 		setup_private=1
 		setup_public=1
 		upgrade=1
-		upgrade=1	from_commit=acdb6cfdf31a2f02baf5bbcbb5cc0cdaf0a3ac69
+		#upgrade=1	from_commit=acdb6cfdf31a2f02baf5bbcbb5cc0cdaf0a3ac69
 		# 1.3.2~ynh1
 		upgrade=1	from_commit=4586e00bbf6ae98f49135623b282446613a9cb25
 		backup_restore=1
