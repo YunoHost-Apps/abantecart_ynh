@@ -5,7 +5,8 @@ It shall NOT be edited by hand.
 
 # Abantecart for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/abantecart.svg)](https://dash.yunohost.org/appci/app/abantecart) ![Working status](https://ci-apps.yunohost.org/ci/badges/abantecart.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/abantecart.maintain.svg)  
+[![Integration level](https://dash.yunohost.org/integration/abantecart.svg)](https://dash.yunohost.org/appci/app/abantecart) ![Working status](https://ci-apps.yunohost.org/ci/badges/abantecart.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/abantecart.maintain.svg)
+
 [![Install Abantecart with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=abantecart)
 
 *[Lire ce readme en français.](./README_fr.md)*
@@ -19,7 +20,6 @@ AbanteCart is a free open source ecommerce platform to power online retail. Aban
 
 
 **Shipped version:** 1.3.2~ynh1
-
 
 **Demo:** https://www.abantecart.com/shopping-cart-demo
 
