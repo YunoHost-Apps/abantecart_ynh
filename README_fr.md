@@ -19,7 +19,7 @@ Si vous n’avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) po
 AbanteCart is a free open source ecommerce platform to power online retail. AbanteCart is a ready to run web application as well as reliable foundation to build custom eCommerce solutions. AbanteCart ecommerce platform is designed to fit a wide variety of online businesses and applications, as well as can be configured or customized to perform very specific business requirements. Chosen by many shop owners launching their business online for the first time, AbanteCart is also picked by developers looking for a user-friendly interface and powerful features set.
 
 
-**Version incluse :** 1.3.2~ynh1
+**Version incluse :** 1.3.3.0~ynh1
 
 **Démo :** https://www.abantecart.com/shopping-cart-demo
 
