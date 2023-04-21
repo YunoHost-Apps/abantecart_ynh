@@ -10,43 +10,10 @@ source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
-# LOAD SETTINGS
-#=================================================
-#REMOVEME? ynh_script_progression --message="Loading installation settings..." --weight=1
-
-#REMOVEME? app=$YNH_APP_INSTANCE_NAME
-
-#REMOVEME? domain=$(ynh_app_setting_get --app=$app --key=domain)
-#REMOVEME? path=$(ynh_app_setting_get --app=$app --key=path)
-#REMOVEME? admin=$(ynh_app_setting_get --app=$app --key=admin)
-#REMOVEME? #REMOVEME? install_dir=$(ynh_app_setting_get --app=$app --key=install_dir)
-#REMOVEME? db_name=$(ynh_app_setting_get --app=$app --key=db_name)
-#REMOVEME? src_version=$(ynh_app_setting_get --app=$app --key=src_version)
-#REMOVEME? phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
-
-#REMOVEME? fpm_footprint=$(ynh_app_setting_get --app=$app --key=fpm_footprint)
-#REMOVEME? fpm_usage=$(ynh_app_setting_get --app=$app --key=fpm_usage)
-
-#=================================================
 # CHECK VERSION
 #=================================================
-ynh_script_progression --message="Checking version..." --weight=1
 
 upgrade_type=$(ynh_check_app_version_changed)
-
-#=================================================
-# BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
-#=================================================
-#REMOVEME? ynh_script_progression --message="Backing up the app before upgrading (may take a while)..." --weight=1
-
-# Backup the current version of the app
-#REMOVEME? ynh_backup_before_upgrade
-#REMOVEME? ynh_clean_setup () {
-	# Restore it if the upgrade fails
-#REMOVEME? 	ynh_restore_upgradebackup
-}
-# Exit if an error occurs during the execution of the script
-#REMOVEME? ynh_abort_if_errors
 
 #=================================================
 # STANDARD UPGRADE STEPS
@@ -56,31 +23,22 @@ upgrade_type=$(ynh_check_app_version_changed)
 ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
 
 # If fpm_footprint doesn't exist, create it
-if [ -z "$fpm_footprint" ]; then
-	fpm_footprint=low
-	ynh_app_setting_set --app=$app --key=fpm_footprint --value=$fpm_footprint
+if [ -z "${fpm_footprint:-}" ]; then
+    fpm_footprint=low
+    ynh_app_setting_set --app=$app --key=fpm_footprint --value=$fpm_footprint
+fi
+
+# If fpm_free_footprint doesn't exist, create it
+if [ -z "${fpm_free_footprint:-}" ]; then
+    fpm_free_footprint=0
+    ynh_app_setting_set --app=$app --key=fpm_free_footprint --value=$fpm_free_footprint
 fi
 
 # If fpm_usage doesn't exist, create it
-if [ -z "$fpm_usage" ]; then
-	fpm_usage=low
-	ynh_app_setting_set --app=$app --key=fpm_usage --value=$fpm_usage
+if [ -z "${fpm_usage:-}" ]; then
+    fpm_usage=low
+    ynh_app_setting_set --app=$app --key=fpm_usage --value=$fpm_usage
 fi
-
-# Cleaning legacy permissions
-#REMOVEME? if ynh_legacy_permissions_exists; then
-#REMOVEME? 	ynh_legacy_permissions_delete_all
-
-	ynh_app_setting_delete --app=$app --key=is_public
-fi
-
-#=================================================
-# CREATE DEDICATED USER
-#=================================================
-#REMOVEME? ynh_script_progression --message="Making sure dedicated system user exists..." --weight=1
-
-# Create a dedicated user (if not existing)
-#REMOVEME? ynh_system_user_create --username=$app --home_dir="$install_dir"
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -94,7 +52,8 @@ then
 	ynh_setup_source --dest_dir="$install_dir/git_src"
 fi
 
-#REMOVEME? ynh_secure_remove $install_dir/www/install
+ynh_secure_remove $install_dir/www/install
+
 chmod 750 "$install_dir"
 chmod -R o-rwx "$install_dir"
 chown -R $app:www-data "$install_dir"
@@ -104,25 +63,12 @@ find $install_dir/www -type f -exec chmod 644 {} \;
 ln -s $install_dir/git_src/public_html $install_dir/www
 
 #=================================================
-# UPGRADE DEPENDENCIES
-#=================================================
-#REMOVEME? ynh_script_progression --message="Upgrading dependencies..." --weight=1
-
-#REMOVEME? ynh_install_app_dependencies $pkg_dependencies
-
-#=================================================
 # PHP-FPM CONFIGURATION
 #=================================================
 ynh_script_progression --message="Upgrading PHP-FPM configuration..." --weight=1
 
 # Create a dedicated PHP-FPM config
 ynh_add_fpm_config --phpversion=$phpversion --usage=$fpm_usage --footprint=$fpm_footprint
-#REMOVEME? phpversion=$(ynh_app_setting_get --app=$app --key=phpversion)
-
-#=================================================
-# NGINX CONFIGURATION
-#=================================================
-ynh_script_progression --message="Upgrading NGINX web server configuration..." --weight=1
 
 # Create a dedicated NGINX config
 ynh_add_nginx_config
@@ -144,15 +90,6 @@ fi
 
 updated_src_version=$(ynh_app_upstream_version)
 ynh_app_setting_set --app=$app --key=src_version --value=$updated_src_version
-
-#=================================================
-# GENERIC FINALIZATION
-#=================================================
-# RELOAD NGINX
-#=================================================
-#REMOVEME? ynh_script_progression --message="Reloading NGINX web server..." --weight=1
-
-#REMOVEME? ynh_systemd_action --service_name=nginx --action=reload
 
 #=================================================
 # END OF SCRIPT
