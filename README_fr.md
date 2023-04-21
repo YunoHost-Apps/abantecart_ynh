@@ -27,13 +27,6 @@ AbanteCart is a free open source ecommerce platform to power online retail. Aban
 
 ![Capture d’écran de Abantecart](./doc/screenshots/dashboard.png)
 
-## Avertissements / informations importantes
-
-### Important points to read before installing
-
-- Do not upgrade manually within the app, upgrade with Yunohost instead!
-- Admin interface will be available at https://domain.tld/?s=admin
-
 ## Documentations et ressources
 
 * Site officiel de l’app : <https://www.abantecart.com/>
