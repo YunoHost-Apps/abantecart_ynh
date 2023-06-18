@@ -5,7 +5,7 @@ name = "Abantecart"
 description.en = "Open source ecommerce platform to power online retail"
 description.fr = "Plateforme de commerce électronique pour la vente au détail en ligne"
 
-version = "1.3.2~ynh1"
+version = "1.3.3~ynh1"
 
 maintainers = []
 
@@ -18,7 +18,7 @@ userdoc = "https://abantecart.atlassian.net/wiki/spaces/AD/overview?homepageId=3
 code = "https://github.com/abantecart/abantecart-src"
 
 [integration]
-yunohost = ">= 11.1.17"
+yunohost = ">= 11.1.20"
 architectures = "all"
 multi_instance = false
 ldap = false
@@ -45,8 +45,8 @@ ram.runtime = "50M"
 
 [resources]
         [resources.sources.main]
-        url = "https://github.com/abantecart/abantecart-src/archive/refs/tags/1.3.2.tar.gz"
-        sha256 = "58ed9007054e5f74826d8ac5d3358d893c612af34e04877107c9baf81f6d529f"
+        url = "https://github.com/abantecart/abantecart-src/archive/refs/tags/1.3.3.tar.gz"
+        sha256 = "80fa2ce773666e55fcae96f5875d4466f3107e64bfccc7c6bda5d5a0b907b864"
         autoupdate.strategy = "latest_github_tag"
 
     [resources.system_user]
@@ -57,7 +57,7 @@ ram.runtime = "50M"
     main.url = "/"
 
     [resources.apt]
-    type = "mariadb-server php8.0-iconv php8.0-mbstring php8.0-mysqli php8.0-zip php8.0-soap libwebp-dev libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev libxpm-dev libonig-dev libzip-dev mc net-tools libxml2-dev"
+    type = "mariadb-server php8.2-iconv php8.2-mbstring php8.2-mysqli php8.2-zip php8.2-soap libwebp-dev libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev libxpm-dev libonig-dev libzip-dev mc net-tools libxml2-dev"
 
     [resources.database]
     type = "mysql"
