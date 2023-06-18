@@ -46,7 +46,7 @@ ram.runtime = "50M"
 [resources]
         [resources.sources.main]
         url = "https://github.com/abantecart/abantecart-src/archive/refs/tags/1.3.3.tar.gz"
-        sha256 = "80fa2ce773666e55fcae96f5875d4466f3107e64bfccc7c6bda5d5a0b907b864"
+        sha256 = "5b31282d148b0a8fa30b6f9c5af14b196bafafa3b8cc3dca8769ec610e985852"
         autoupdate.strategy = "latest_github_tag"
 
     [resources.system_user]
