@@ -18,7 +18,7 @@ userdoc = "https://abantecart.atlassian.net/wiki/spaces/AD/overview?homepageId=3
 code = "https://github.com/abantecart/abantecart-src"
 
 [integration]
-yunohost = ">= 11.1.21"
+yunohost = ">= 11.2"
 architectures = "all"
 multi_instance = false
 ldap = false
@@ -30,7 +30,6 @@ ram.runtime = "50M"
 [install]
     [install.domain]
     type = "domain"
-    full_domain = true
 
     [install.init_main_permission]
     type = "group"
