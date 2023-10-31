@@ -33,7 +33,7 @@ AbanteCart is a free open source ecommerce platform to power online retail. Aban
 * Official user documentation: <https://abantecart.atlassian.net/wiki/spaces/AD/overview?homepageId=3506313>
 * Official admin documentation: <https://docs.abantecart.com/>
 * Upstream app code repository: <https://github.com/abantecart/abantecart-src>
-* YunoHost documentation for this app: <https://yunohost.org/app_abantecart>
+* YunoHost Store: <https://apps.yunohost.org/app/abantecart>
 * Report a bug: <https://github.com/YunoHost-Apps/abantecart_ynh/issues>
 
 ## Developer info
