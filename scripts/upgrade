@@ -49,7 +49,7 @@ then
 	ynh_script_progression --message="Upgrading source files..." --weight=1
 
 	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$install_dir/git_src"
+	ynh_setup_source --dest_dir="$install_dir/git_src" --full_replace=1
 fi
 
 ynh_secure_remove $install_dir/www/install
