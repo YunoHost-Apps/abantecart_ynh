@@ -13,10 +13,6 @@ source /usr/share/yunohost/helpers
 # RETRIEVE ARGUMENTS FROM THE MANIFEST
 #=================================================
 
-fpm_footprint="low"
-fpm_free_footprint=0
-fpm_usage="low"
-
 email=$(ynh_user_get_info --username=$admin --key=mail)
 src_version=$(ynh_app_upstream_version)
 
@@ -25,9 +21,6 @@ src_version=$(ynh_app_upstream_version)
 #=================================================
 
 ynh_app_setting_set --app=$app --key=src_version --value=$src_version
-ynh_app_setting_set --app=$app --key=fpm_footprint --value=$fpm_footprint
-ynh_app_setting_set --app=$app --key=fpm_free_footprint --value=$fpm_free_footprint
-ynh_app_setting_set --app=$app --key=fpm_usage --value=$fpm_usage
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -49,12 +42,7 @@ find $install_dir/www -type f -exec chmod 644 {} \;
 ynh_script_progression --message="Configuring PHP-FPM..." --weight=2
 
 # Create a dedicated PHP-FPM config
-ynh_add_fpm_config --usage=$fpm_usage --footprint=$fpm_footprint
-
-#=================================================
-# NGINX CONFIGURATION
-#=================================================
-ynh_script_progression --message="Configuring NGINX web server..." --weight=2
+ynh_add_fpm_config
 
 # Create a dedicated NGINX config
 ynh_add_nginx_config
