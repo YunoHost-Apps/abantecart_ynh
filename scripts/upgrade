@@ -25,6 +25,7 @@ chown -R $app:www-data "$install_dir"
 find $install_dir/www -type d -exec chmod 755 {} \;
 find $install_dir/www -type f -exec chmod 644 {} \;
 
+ynh_secure_remove --file="$install_dir/www/public_html"
 ln -s $install_dir/git_src/public_html $install_dir/www
 
 #=================================================
