@@ -5,7 +5,7 @@ Il NE doit PAS être modifié à la main.
 
 # Abantecart pour YunoHost
 
-[![Niveau d’intégration](https://dash.yunohost.org/integration/abantecart.svg)](https://dash.yunohost.org/appci/app/abantecart) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/abantecart.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/abantecart.maintain.svg)
+[![Niveau d’intégration](https://dash.yunohost.org/integration/abantecart.svg)](https://ci-apps.yunohost.org/ci/apps/abantecart/) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/abantecart.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/abantecart.maintain.svg)
 
 [![Installer Abantecart avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=abantecart)
 
@@ -16,10 +16,9 @@ Il NE doit PAS être modifié à la main.
 
 ## Vue d’ensemble
 
-AbanteCart is a ecommerce platform to power online retail. AbanteCart is a ready to run web application as well as reliable foundation to build custom eCommerce solutions. AbanteCart ecommerce platform is designed to fit a wide variety of online businesses and applications, as well as can be configured or customized to perform very specific business requirements. Chosen by many shop owners launching their business online for the first time, AbanteCart is also picked by developers looking for a user-friendly interface and powerful features set.
+AbanteCart est une plateforme de commerce électronique destinée à dynamiser la vente au détail en ligne. AbanteCart est une application Web prête à l'emploi ainsi qu'une base fiable pour créer des solutions de commerce électronique personnalisées. La plateforme de commerce électronique AbanteCart est conçue pour s'adapter à une grande variété d'entreprises et d'applications en ligne, et peut être configurée ou personnalisée pour répondre à des exigences commerciales très spécifiques.
 
-
-**Version incluse :** 1.3.4~ynh3
+**Version incluse :** 1.3.4~ynh4
 
 **Démo :** <https://www.abantecart.com/shopping-cart-demo>
 

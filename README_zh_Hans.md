@@ -5,7 +5,7 @@
 
 # YunoHost 上的 Abantecart
 
-[![集成程度](https://dash.yunohost.org/integration/abantecart.svg)](https://dash.yunohost.org/appci/app/abantecart) ![工作状态](https://ci-apps.yunohost.org/ci/badges/abantecart.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/abantecart.maintain.svg)
+[![集成程度](https://dash.yunohost.org/integration/abantecart.svg)](https://ci-apps.yunohost.org/ci/apps/abantecart/) ![工作状态](https://ci-apps.yunohost.org/ci/badges/abantecart.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/abantecart.maintain.svg)
 
 [![使用 YunoHost 安装 Abantecart](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=abantecart)
 
@@ -16,10 +16,9 @@
 
 ## 概况
 
-AbanteCart is a ecommerce platform to power online retail. AbanteCart is a ready to run web application as well as reliable foundation to build custom eCommerce solutions. AbanteCart ecommerce platform is designed to fit a wide variety of online businesses and applications, as well as can be configured or customized to perform very specific business requirements. Chosen by many shop owners launching their business online for the first time, AbanteCart is also picked by developers looking for a user-friendly interface and powerful features set.
+AbanteCart is a ecommerce platform to power online retail. AbanteCart is a ready to run web application as well as reliable foundation to build custom eCommerce solutions. AbanteCart ecommerce platform is designed to fit a wide variety of online businesses and applications, as well as can be configured or customized to perform very specific business requirements.
 
-
-**分发版本：** 1.3.4~ynh3
+**分发版本：** 1.3.4~ynh4
 
 **演示：** <https://www.abantecart.com/shopping-cart-demo>
 
