@@ -56,7 +56,7 @@ ram.runtime = "50M"
     main.url = "/"
 
     [resources.apt]
-    packages = "mariadb-server, php8.3-iconv, php8.3-mbstring, php8.3-mysqli, php8.3-zip, php8.3-curl, php8.3-gd, php8.3-soap, php8.3-xml, libwebp-dev, libfreetype6-dev, libjpeg62-turbo-dev, libmcrypt-dev, libpng-dev, libxpm-dev, libonig-dev, libzip-dev, mc, net-tools, libxml2-dev"
+    packages = "mariadb-server, php8.3-iconv, php8.3-mbstring, php8.3-mysqli, php8.3-zip, php8.3-curl, php8.3-gd, php8.3-xml"
 
     [resources.database]
     type = "mysql"
