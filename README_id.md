@@ -5,7 +5,9 @@ Ini TIDAK boleh diedit dengan tangan.
 
 # Abantecart untuk YunoHost
 
-[![Tingkat integrasi](https://dash.yunohost.org/integration/abantecart.svg)](https://ci-apps.yunohost.org/ci/apps/abantecart/) ![Status kerja](https://ci-apps.yunohost.org/ci/badges/abantecart.status.svg) ![Status pemeliharaan](https://ci-apps.yunohost.org/ci/badges/abantecart.maintain.svg)
+[![Tingkat integrasi](https://apps.yunohost.org/badge/integration/abantecart)](https://ci-apps.yunohost.org/ci/apps/abantecart/)
+![Status kerja](https://apps.yunohost.org/badge/state/abantecart)
+![Status pemeliharaan](https://apps.yunohost.org/badge/maintained/abantecart)
 
 [![Pasang Abantecart dengan YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=abantecart)
 

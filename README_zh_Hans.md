@@ -5,7 +5,9 @@
 
 # YunoHost 上的 Abantecart
 
-[![集成程度](https://dash.yunohost.org/integration/abantecart.svg)](https://ci-apps.yunohost.org/ci/apps/abantecart/) ![工作状态](https://ci-apps.yunohost.org/ci/badges/abantecart.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/abantecart.maintain.svg)
+[![集成程度](https://apps.yunohost.org/badge/integration/abantecart)](https://ci-apps.yunohost.org/ci/apps/abantecart/)
+![工作状态](https://apps.yunohost.org/badge/state/abantecart)
+![维护状态](https://apps.yunohost.org/badge/maintained/abantecart)
 
 [![使用 YunoHost 安装 Abantecart](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=abantecart)
 

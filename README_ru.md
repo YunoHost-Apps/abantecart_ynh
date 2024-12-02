@@ -5,7 +5,9 @@
 
 # Abantecart для YunoHost
 
-[![Уровень интеграции](https://dash.yunohost.org/integration/abantecart.svg)](https://ci-apps.yunohost.org/ci/apps/abantecart/) ![Состояние работы](https://ci-apps.yunohost.org/ci/badges/abantecart.status.svg) ![Состояние сопровождения](https://ci-apps.yunohost.org/ci/badges/abantecart.maintain.svg)
+[![Уровень интеграции](https://apps.yunohost.org/badge/integration/abantecart)](https://ci-apps.yunohost.org/ci/apps/abantecart/)
+![Состояние работы](https://apps.yunohost.org/badge/state/abantecart)
+![Состояние сопровождения](https://apps.yunohost.org/badge/maintained/abantecart)
 
 [![Установите Abantecart с YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=abantecart)
 

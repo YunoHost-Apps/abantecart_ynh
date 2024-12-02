@@ -5,7 +5,9 @@ It shall NOT be edited by hand.
 
 # Abantecart for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/abantecart.svg)](https://ci-apps.yunohost.org/ci/apps/abantecart/) ![Working status](https://ci-apps.yunohost.org/ci/badges/abantecart.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/abantecart.maintain.svg)
+[![Integration level](https://apps.yunohost.org/badge/integration/abantecart)](https://ci-apps.yunohost.org/ci/apps/abantecart/)
+![Working status](https://apps.yunohost.org/badge/state/abantecart)
+![Maintenance status](https://apps.yunohost.org/badge/maintained/abantecart)
 
 [![Install Abantecart with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=abantecart)
 
