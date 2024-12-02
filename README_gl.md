@@ -5,7 +5,9 @@ NON debe editarse manualmente.
 
 # Abantecart para YunoHost
 
-[![Nivel de integración](https://dash.yunohost.org/integration/abantecart.svg)](https://ci-apps.yunohost.org/ci/apps/abantecart/) ![Estado de funcionamento](https://ci-apps.yunohost.org/ci/badges/abantecart.status.svg) ![Estado de mantemento](https://ci-apps.yunohost.org/ci/badges/abantecart.maintain.svg)
+[![Nivel de integración](https://apps.yunohost.org/badge/integration/abantecart)](https://ci-apps.yunohost.org/ci/apps/abantecart/)
+![Estado de funcionamento](https://apps.yunohost.org/badge/state/abantecart)
+![Estado de mantemento](https://apps.yunohost.org/badge/maintained/abantecart)
 
 [![Instalar Abantecart con YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=abantecart)
 

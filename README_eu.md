@@ -5,7 +5,9 @@ EZ editatu eskuz.
 
 # Abantecart YunoHost-erako
 
-[![Integrazio maila](https://dash.yunohost.org/integration/abantecart.svg)](https://ci-apps.yunohost.org/ci/apps/abantecart/) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/abantecart.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/abantecart.maintain.svg)
+[![Integrazio maila](https://apps.yunohost.org/badge/integration/abantecart)](https://ci-apps.yunohost.org/ci/apps/abantecart/)
+![Funtzionamendu egoera](https://apps.yunohost.org/badge/state/abantecart)
+![Mantentze egoera](https://apps.yunohost.org/badge/maintained/abantecart)
 
 [![Instalatu Abantecart YunoHost-ekin](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=abantecart)
 

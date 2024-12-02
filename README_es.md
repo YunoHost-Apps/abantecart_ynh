@@ -5,7 +5,9 @@ No se debe editar a mano.
 
 # Abantecart para Yunohost
 
-[![Nivel de integración](https://dash.yunohost.org/integration/abantecart.svg)](https://ci-apps.yunohost.org/ci/apps/abantecart/) ![Estado funcional](https://ci-apps.yunohost.org/ci/badges/abantecart.status.svg) ![Estado En Mantención](https://ci-apps.yunohost.org/ci/badges/abantecart.maintain.svg)
+[![Nivel de integración](https://apps.yunohost.org/badge/integration/abantecart)](https://ci-apps.yunohost.org/ci/apps/abantecart/)
+![Estado funcional](https://apps.yunohost.org/badge/state/abantecart)
+![Estado En Mantención](https://apps.yunohost.org/badge/maintained/abantecart)
 
 [![Instalar Abantecart con Yunhost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=abantecart)
 
@@ -37,7 +39,7 @@ AbanteCart is a ecommerce platform to power online retail. AbanteCart is a ready
 
 ## Información para desarrolladores
 
-Por favor enviar sus correcciones a la [`branch testing`](https://github.com/YunoHost-Apps/abantecart_ynh/tree/testing
+Por favor enviar sus correcciones a la [rama `testing`](https://github.com/YunoHost-Apps/abantecart_ynh/tree/testing).
 
 Para probar la rama `testing`, sigue asÍ:
 
