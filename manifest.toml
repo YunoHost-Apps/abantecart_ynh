@@ -2,7 +2,7 @@ packaging_format = 2
 
 id = "abantecart"
 name = "Abantecart"
-description.en = "Open source ecommerce platform to power online retail"
+description.en = "Ecommerce platform to power online retail"
 description.fr = "Plateforme de commerce électronique pour la vente au détail en ligne"
 
 version = "1.4.1~ynh1"
@@ -21,8 +21,10 @@ code = "https://github.com/abantecart/abantecart-src"
 yunohost = ">= 11.2.20"
 architectures = "all"
 multi_instance = false
+
 ldap = false
 sso = false
+
 disk = "50M"
 ram.build = "50M"
 ram.runtime = "50M"
