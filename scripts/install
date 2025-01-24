@@ -23,12 +23,9 @@ ynh_app_setting_set --key=src_version --value=$src_version
 #=================================================
 ynh_script_progression "Setting up source files..."
 
-# Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$install_dir/git_src"
 ln -s $install_dir/git_src/public_html $install_dir/www
 
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R o-rwx "$install_dir"
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R $app:www-data "$install_dir"
 find $install_dir/www -type d -exec chmod 755 {} \;
 find $install_dir/www -type f -exec chmod 644 {} \;
 
@@ -37,10 +34,8 @@ find $install_dir/www -type f -exec chmod 644 {} \;
 #=================================================
 ynh_script_progression "Configuring PHP-FPM..."
 
-# Create a dedicated PHP-FPM config
 ynh_config_add_phpfpm
 
-# Create a dedicated NGINX config
 ynh_config_add_nginx
 
 #=================================================
@@ -65,9 +60,6 @@ php$php_version $install_dir/www/install/cli_install.php install \
 
 ynh_safe_rm $install_dir/www/install
 
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 750 "$install_dir"
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod -R o-rwx "$install_dir"
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R $app:www-data "$install_dir"
 find $install_dir/www -type d -exec chmod 755 {} \;
 find $install_dir/www -type f -exec chmod 644 {} \;
 
