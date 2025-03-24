@@ -20,7 +20,8 @@ No se debe editar a mano.
 
 AbanteCart is a ecommerce platform to power online retail. AbanteCart is a ready to run web application as well as reliable foundation to build custom eCommerce solutions. AbanteCart ecommerce platform is designed to fit a wide variety of online businesses and applications, as well as can be configured or customized to perform very specific business requirements.
 
-**Versión actual:** 1.4.1~ynh1
+
+**Versión actual:** 1.4.1~ynh2
 
 **Demo:** <https://www.abantecart.com/shopping-cart-demo>
 
