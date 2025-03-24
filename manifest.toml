@@ -1,3 +1,5 @@
+#:schema https://raw.githubusercontent.com/YunoHost/apps/master/schemas/manifest.v2.schema.json
+
 packaging_format = 2
 
 id = "abantecart"
@@ -5,7 +7,7 @@ name = "Abantecart"
 description.en = "Ecommerce platform to power online retail"
 description.fr = "Plateforme de commerce électronique pour la vente au détail en ligne"
 
-version = "1.4.1~ynh1"
+version = "1.4.1~ynh2"
 
 maintainers = []
 
@@ -23,6 +25,7 @@ architectures = "all"
 multi_instance = false
 
 ldap = false
+
 sso = false
 
 disk = "50M"
@@ -45,10 +48,10 @@ ram.runtime = "50M"
     optional = false
 
 [resources]
-        [resources.sources.main]
-        url = "https://github.com/abantecart/abantecart-src/archive/refs/tags/1.4.1.tar.gz"
-        sha256 = "cecee5a42e82c6d5f42c5962676fc534a1332abfa1e796993046df7929a9f311"
-        autoupdate.strategy = "latest_github_tag"
+    [resources.sources.main]
+    url = "https://github.com/abantecart/abantecart-src/archive/refs/tags/1.4.1.tar.gz"
+    sha256 = "cecee5a42e82c6d5f42c5962676fc534a1332abfa1e796993046df7929a9f311"
+    autoupdate.strategy = "latest_github_tag"
 
     [resources.system_user]
 
