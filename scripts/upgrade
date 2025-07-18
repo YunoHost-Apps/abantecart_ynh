@@ -21,9 +21,9 @@ ynh_safe_rm "$install_dir/www/public_html"
 ln -s $install_dir/git_src/public_html $install_dir/www
 
 #=================================================
-# UPDATE A CONFIG FILE
+# REAPPLY SYSTEM CONFIGURATIONS
 #=================================================
-ynh_script_progression "Updating $app's configuration files..."
+ynh_script_progression "Upgrading system configurations related to $app..."
 
 ynh_config_add_phpfpm
 

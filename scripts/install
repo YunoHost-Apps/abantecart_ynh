@@ -30,16 +30,14 @@ find $install_dir/www -type d -exec chmod 755 {} \;
 find $install_dir/www -type f -exec chmod 644 {} \;
 
 #=================================================
-# PHP-FPM CONFIGURATION
+# SYSTEM CONFIGURATION
 #=================================================
-ynh_script_progression "Configuring PHP-FPM..."
+ynh_script_progression "Adding system configurations related to $app..."
 
 ynh_config_add_phpfpm
 
 ynh_config_add_nginx
 
-#=================================================
-# SPECIFIC SETUP
 #=================================================
 # INSTALL APP
 #=================================================
