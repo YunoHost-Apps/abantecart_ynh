@@ -1,3 +1,5 @@
+#:schema https://raw.githubusercontent.com/YunoHost/apps/master/schemas/manifest.v2.schema.json
+
 packaging_format = 2
 
 id = "abantecart"
@@ -24,6 +26,7 @@ architectures = "all"
 multi_instance = false
 
 ldap = false
+
 sso = false
 
 disk = "50M"
@@ -46,10 +49,10 @@ ram.runtime = "50M"
     optional = false
 
 [resources]
-        [resources.sources.main]
-        url = "https://github.com/abantecart/abantecart-src/archive/refs/tags/1.4.2.tar.gz"
-        sha256 = "b03d488bd291fb4b160aaf9a212e8ea7ebb98c7de599957df9b3de56567edfda"
-        autoupdate.strategy = "latest_github_tag"
+    [resources.sources.main]
+    url = "https://github.com/abantecart/abantecart-src/archive/refs/tags/1.4.2.tar.gz"
+    sha256 = "b03d488bd291fb4b160aaf9a212e8ea7ebb98c7de599957df9b3de56567edfda"
+    autoupdate.strategy = "latest_github_tag"
 
     [resources.system_user]
 
