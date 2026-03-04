@@ -7,7 +7,7 @@ name = "Abantecart"
 description.en = "Ecommerce platform to power online retail"
 description.fr = "Plateforme de commerce électronique pour la vente au détail en ligne"
 
-version = "1.4.2.1~ynh1"
+version = "1.4.3~ynh1"
 
 maintainers = []
 
@@ -49,8 +49,8 @@ ram.runtime = "50M"
 
 [resources]
     [resources.sources.main]
-    url = "https://github.com/abantecart/abantecart-src/archive/refs/tags/1.4.2.1.tar.gz"
-    sha256 = "25091e28811976f5b8b45189988aeb06ef940dd7e9efa18628a17c0d0518c67e"
+    url = "https://github.com/abantecart/abantecart-src/archive/refs/tags/1.4.3.tar.gz"
+    sha256 = "9b4c36af564d9bb1ecbd806db66ac9225a5472075576523708726357b9982634"
     autoupdate.strategy = "latest_github_tag"
 
     [resources.system_user]
