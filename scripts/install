@@ -1,10 +1,8 @@
 #!/bin/bash
 
-#=================================================
-# IMPORT GENERIC HELPERS
-#=================================================
-
 source /usr/share/yunohost/helpers
+
+ynh_app_setting_set --key=php_upload_max_filesize --value=256M
 
 #=================================================
 # RETRIEVE ARGUMENTS FROM THE MANIFEST
@@ -17,39 +15,34 @@ src_version=$(ynh_app_upstream_version)
 # STORE SETTINGS FROM MANIFEST
 #=================================================
 
-ynh_app_setting_set --app=$app --key=src_version --value=$src_version
+ynh_app_setting_set --key=src_version --value=$src_version
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
-ynh_script_progression --message="Setting up source files..." --weight=3
+ynh_script_progression "Setting up source files..."
 
-# Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$install_dir/git_src"
 ln -s $install_dir/git_src/public_html $install_dir/www
 
-chmod -R o-rwx "$install_dir"
-chown -R $app:www-data "$install_dir"
 find $install_dir/www -type d -exec chmod 755 {} \;
 find $install_dir/www -type f -exec chmod 644 {} \;
 
 #=================================================
-# PHP-FPM CONFIGURATION
+# SYSTEM CONFIGURATION
 #=================================================
-ynh_script_progression --message="Configuring PHP-FPM..." --weight=2
+ynh_script_progression "Adding system configurations related to $app..."
 
-# Create a dedicated PHP-FPM config
-ynh_add_fpm_config
+ynh_config_add_phpfpm
 
-# Create a dedicated NGINX config
-ynh_add_nginx_config
+ynh_config_add_nginx
 
 #=================================================
 # INSTALL APP
 #=================================================
-ynh_script_progression --message="Installing app..." --weight=2
+ynh_script_progression "Installing app..."
 
-php$phpversion $install_dir/www/install/cli_install.php install \
+php$php_version $install_dir/www/install/cli_install.php install \
     --db_host=localhost \
     --db_user=$db_name \
     --db_password=$db_pwd \
@@ -62,11 +55,8 @@ php$phpversion $install_dir/www/install/cli_install.php install \
     --email=$email \
     --http_server=https://$domain
 
-ynh_secure_remove $install_dir/www/install
+ynh_safe_rm $install_dir/www/install
 
-chmod 750 "$install_dir"
-chmod -R o-rwx "$install_dir"
-chown -R $app:www-data "$install_dir"
 find $install_dir/www -type d -exec chmod 755 {} \;
 find $install_dir/www -type f -exec chmod 644 {} \;
 
@@ -74,4 +64,4 @@ find $install_dir/www -type f -exec chmod 644 {} \;
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Installation of $app completed" --last
+ynh_script_progression "Installation of $app completed"
