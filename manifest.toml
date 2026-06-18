@@ -20,7 +20,7 @@ userdoc = "https://abantecart.atlassian.net/wiki/spaces/AD/overview?homepageId=3
 code = "https://github.com/abantecart/abantecart-src"
 
 [integration]
-yunohost = ">= 11.2.20"
+yunohost = ">= 12.1.38"
 architectures = "all"
 multi_instance = false
 
