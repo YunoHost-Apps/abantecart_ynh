@@ -9,7 +9,6 @@ ynh_app_setting_set --key=php_upload_max_filesize --value=256M
 #=================================================
 
 email=$(ynh_user_get_info --username=$admin --key=mail)
-src_version=$(ynh_app_upstream_version)
 
 #=================================================
 # STORE SETTINGS FROM MANIFEST

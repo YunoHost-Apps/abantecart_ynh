@@ -7,7 +7,7 @@ name = "Abantecart"
 description.en = "Ecommerce platform to power online retail"
 description.fr = "Plateforme de commerce électronique pour la vente au détail en ligne"
 
-version = "1.4.3~ynh1"
+version = "1.4.4~ynh1"
 
 maintainers = []
 
@@ -20,7 +20,7 @@ userdoc = "https://abantecart.atlassian.net/wiki/spaces/AD/overview?homepageId=3
 code = "https://github.com/abantecart/abantecart-src"
 
 [integration]
-yunohost = ">= 12.1.17"
+yunohost = ">= 12.1.39"
 helpers_version = "2.1"
 architectures = "all"
 multi_instance = false
@@ -49,8 +49,8 @@ ram.runtime = "50M"
 
 [resources]
     [resources.sources.main]
-    url = "https://github.com/abantecart/abantecart-src/archive/refs/tags/1.4.3.tar.gz"
-    sha256 = "9b4c36af564d9bb1ecbd806db66ac9225a5472075576523708726357b9982634"
+    url = "https://github.com/abantecart/abantecart-src/archive/refs/tags/1.4.4.tar.gz"
+    sha256 = "8f49e8b84501349f575b5467f5b74460074cad8fc7363285202359689019ce8c"
     autoupdate.strategy = "latest_github_tag"
 
     [resources.system_user]
@@ -62,7 +62,7 @@ ram.runtime = "50M"
     main.url = "/"
 
     [resources.apt]
-    packages = "mariadb-server, php8.4-iconv, php8.4-mbstring, php8.4-mysqli, php8.4-zip, php8.4-curl, php8.4-gd, php8.4-xml"
+    packages = "mariadb-server, php8.5-iconv, php8.5-mbstring, php8.5-mysqli, php8.5-zip, php8.5-curl, php8.5-gd, php8.5-xml"
 
     [resources.database]
     type = "mysql"
